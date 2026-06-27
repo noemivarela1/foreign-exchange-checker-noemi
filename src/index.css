@@ -1,11 +1,20 @@
 @import "tailwindcss";
 
-/* 1. Rexistramos todas as túas cores personalizadas en Tailwind v4 */
+/* Rexistramos o arquivo de fontes e dámoslle un nome á familia */
+@font-face {
+  font-family: 'JetBrains Mono'; /* 👈 O nome inventado para a familia */
+  src: url('/fonts/jetbrains-mono/jetbrains-mono-variable.ttf') format('truetype-variations'),
+       url('/fonts/jetbrains-mono/jetbrainsmono-variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+/* Rexistramos todas as cores personalizadas en Tailwind v4 */
 @theme {
   --color-neutral-900: #0A0A0A;
   --color-neutral-700: #171719;
-  --color-neutral-600: #2E2E2E;
-  --color-neutral-500: #3D3D3D;
+  --color-neutral-600: #202022;
+  --color-neutral-500: #2E2E2E;
   --color-neutral-400: #3D3D3D;
   --color-neutral-300: #454547;
   --color-neutral-200: #9D9D9D;
@@ -17,6 +26,38 @@
   
   --color-green-500: #42EB05;
   --color-red-500: #FF4141;
+
+  --font-jetbrains: 'JetBrains Mono', monospace;
+
+  --spacing-0: 0px;
+  --spacing-025: 2px;
+  --spacing-050: 4px;
+  --spacing-075: 6px;
+  --spacing-100: 8px;
+  --spacing-125: 10px;
+  --spacing-150: 12px;
+  --spacing-200: 16px;
+  --spacing-250: 20px;
+  --spacing-300: 24px;
+  --spacing-400: 32px;
+  --spacing-500: 40px;
+  --spacing-600: 48px;
+  --spacing-800: 64px;
+  --spacing-1000: 80px;
+  --spacing-1400: 112px;
+  --spacing-1600: 128px;
+  --spacing-1800: 140px;
+
+  --radius-0: 0;
+  --radius-4: 4px; 
+  --radius-6: 6px;
+  --radius-8: 8px; 
+  --radius-10: 10px;
+  --radius-12: 12px; 
+  --radius-16: 16px;
+  --radius-20: 20px; 
+  --radius-24: 24px;
+  --radius-full: 999px;
 }
 
 /* 2. Aplicamos os estilos globais para que afecten a toda a web */
@@ -26,4 +67,98 @@
     color: var(--color-neutral-50);        /* Texto branco por defecto */
     margin: 0;                             /* Elimina as marxes estrañas da pantalla */
   }
+}
+
+/* src/index.css */
+
+@theme {
+  --font-jetbrains: 'JetBrains Mono', monospace;
+}
+
+/* ─── UTILITY DO PRESET 1 CON CAMBIO AUTOMÁTICO PARA TABLET ─── */
+@utility text-preset-1 {
+  font-family: var(--font-jetbrains);
+  font-weight: 700;           /* JetBrains Mono Bold (Peso 700) */
+  line-height: 1;             /* Line height do 100% */
+  letter-spacing: -0.5px;     /* Espazado de letras  */
+  
+  /* 1. Tamaño base para Móbiles e Tablets (Ata 767px de ancho) */
+  font-size: 32px;            
+  
+  /* 2. Cando a pantalla sexa un ordenador ou escritorio (Ancho maior ou igual a 768px) */
+  @media (min-width: 768px) {
+    font-size: 40px;          /* Sube aos 40px automaticamente */
+  }
+}
+
+@utility text-preset-2 {
+  font-family: var(--font-jetbrains);
+  font-size: 20px;            /* O teu tamaño de Figma */
+  font-weight: 400;           /* JetBrains Mono Bold */
+  line-height: 1.2;           /* Equivale ao line-height do 120% */
+  letter-spacing: -0.5px;     /* O teu espazado de letras negativo */
+}
+
+@utility text-preset-2-bold {
+  font-family: var(--font-jetbrains);
+  font-size: 20px;
+  font-weight: 700;           
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+@utility text-preset-3 {
+  font-family: var(--font-jetbrains);
+  font-size: 16px;            /* O teu tamaño de Figma */
+  font-weight: 400;           /* JetBrains Mono Regular */
+  line-height: 1.2;           /* Equivale ao line-height do 120% */
+  letter-spacing: 1px;        /* Espazado de letras positivo */
+}
+
+@utility text-preset-3-medium {
+  font-family: var(--font-jetbrains);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+@utility text-preset-3-bold {
+  font-family: var(--font-jetbrains);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 1px;
+}
+
+@utility text-preset-4 {
+  font-family: var(--font-jetbrains);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+@utility text-preset-5 {
+  font-family: var(--font-jetbrains);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+}
+
+@utility text-preset-5-medium {
+  font-family: var(--font-jetbrains);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+@utility text-preset-6 {
+  font-family: var(--font-jetbrains);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0px;
 }
