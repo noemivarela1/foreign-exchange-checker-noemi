@@ -16,8 +16,8 @@ const currencyData = {
   cz: { code: 'CZK', name: 'Czech Koruna' },
   dk: { code: 'DKK', name: 'Danish Krone' },
   eg: { code: 'EGP', name: 'Egyptian Pound' },
-  eu: { code: 'EUR', name: 'Euro' },
-  gb: { code: 'GBP', name: 'British Pound' },
+  eu: { code: 'EUR', name: 'Euro', popular: true},
+  gb: { code: 'GBP', name: 'British Pound', popular: true},
   hk: { code: 'HKD', name: 'Hong Kong Dollar' },
   hn: { code: 'HNL', name: 'Honduran Lempira' },
   ht: { code: 'HTG', name: 'Haitian Gourde' },
@@ -55,7 +55,7 @@ const currencyData = {
   tr: { code: 'TRY', name: 'Turkish Lira' },
   tw: { code: 'TWD', name: 'New Taiwan Dollar' },
   ua: { code: 'UAH', name: 'Ukrainian Hryvnia' },
-  us: { code: 'USD', name: 'US Dollar' },
+  us: { code: 'USD', name: 'US Dollar', popular: true},
   vn: { code: 'VND', name: 'Vietnamese Dong' },
   za: { code: 'ZAR', name: 'South African Rand' }
 };
@@ -64,7 +64,8 @@ const currencyData = {
 export const currencies = Object.entries(currencyData).map(([key, item]) => ({
   code: item.code,
   name: item.name,
-  flag: `./images/flags/${key}.webp` // Automatiza a ruta usando o nome do teu ficheiro
+  flag: `./images/flags/${key}.webp`, // Automatiza a ruta usando o nome do teu ficheiro
+  popular:item.popular
 }));
 
 // Xeramos un mapa indexado por código para inicializar os useState de forma rápida

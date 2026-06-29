@@ -162,3 +162,14 @@
   line-height: 1;
   letter-spacing: 0px;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;  /* IE e Edge vello */
+  scrollbar-width: none !important;  /* Firefox */
+}
