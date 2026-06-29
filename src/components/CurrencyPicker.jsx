@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { currencies, currenciesMap } from '../data/currencies';
 
 export default function CurrencyPicker({ value, onChange, defaultValue }) {
   console.log("Moeda recibida no Picker:",value.code);
@@ -6,13 +7,13 @@ export default function CurrencyPicker({ value, onChange, defaultValue }) {
   const [isOpen, setIsOpen] = useState(false)
 
   // 2. Datos das moedas (Bandeira, código e nome)
-  const currencies = [
+  /*const currencies = [
     { code: 'USD', name: 'US Dollar', flag: './images/flags/us.webp' },
     { code: 'EUR', name: 'Euro', flag: './images/flags/eu.webp' },
     { code: 'GBP', name: 'British Pound', flag: './images/flags/gb.webp' },
     { code: 'CAD', name: 'Canadian Dollar', flag: './images/flags/ca.webp' },
     { code: 'JPY', name: 'Japanese Yen', flag: './images/flags/jp.webp' }
-  ]
+  ]*/
 
   // Estado para gardar a moeda seleccionada (Empeza con USD)
   //const [selected, setSelected] = useState(currencies[0])
