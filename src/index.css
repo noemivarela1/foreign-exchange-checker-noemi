@@ -11,6 +11,7 @@
 
 /* Rexistramos todas as cores personalizadas en Tailwind v4 */
 @theme {
+  --font-jetbrains: 'JetBrains Mono', monospace;
   --color-neutral-900: #0A0A0A;
   --color-neutral-700: #171719;
   --color-neutral-600: #202022;
@@ -69,11 +70,6 @@
   }
 }
 
-/* src/index.css */
-
-@theme {
-  --font-jetbrains: 'JetBrains Mono', monospace;
-}
 
 /* ─── UTILITY DO PRESET 1 CON CAMBIO AUTOMÁTICO PARA TABLET ─── */
 @utility text-preset-1 {
@@ -172,4 +168,18 @@
 .no-scrollbar {
   -ms-overflow-style: none !important;  /* IE e Edge vello */
   scrollbar-width: none !important;  /* Firefox */
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+/* Pausa automática ao poñer o rato enriba */
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

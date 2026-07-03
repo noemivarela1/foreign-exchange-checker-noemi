@@ -4,6 +4,7 @@ import Header from './components/Header'
 import LiveMarketsTicker from './components/LiveMarketsTicker'
 import CurrencyConverter from './components/CurrencyConverter'
 import { currencies, currenciesMap } from './data/currencies';
+import DashBoard from './components/DashBoard';
 
 function App() {
   const [amount, setAmount] = useState(1000);
@@ -45,13 +46,10 @@ function App() {
           toCurrency={toCurrency} setToCurrency={setToCurrency}
           convertedAmount={convertedAmount} loading={loading}
         />
-        <p></p>
-        <nav className="flex gap-1.5 border-b border-neutral-800 mt-4 w-full">
-          <button onClick={() => setActiveTab('history')} className={`uppercase text-preset-5-medium pb-2 -mb-[1px] border-b-2 cursor-pointer ${activeTab === 'history' ? 'border-lime-500 text-lime-500' : 'border-transparent text-neutral-400'}`}>History</button>
-          <button onClick={() => setActiveTab('compare')} className={`uppercase text-preset-5-medium pb-2 -mb-[1px] border-b-2 cursor-pointer ${activeTab === 'compare' ? 'border-lime-500 text-lime-500' : 'border-transparent text-neutral-400'}`}>Compare</button>
-          <button onClick={() => setActiveTab('favorites')} className={`uppercase text-preset-5-medium pb-2 -mb-[1px] border-b-2 cursor-pointer ${activeTab === 'favorites' ? 'border-lime-500 text-lime-500' : 'border-transparent text-neutral-400'}`}>Favorites</button>
-          <button onClick={() => setActiveTab('log')} className={`uppercase text-preset-5-medium pb-2 -mb-[1px] border-b-2 cursor-pointer ${activeTab === 'log' ? 'border-lime-500 text-lime-500' : 'border-transparent text-neutral-400'}`}>Log</button>
-        </nav>
+        <DashBoard
+          fromCurrency={fromCurrency} 
+          toCurrency={toCurrency}  
+        />
       </main>
     </div>
   );
