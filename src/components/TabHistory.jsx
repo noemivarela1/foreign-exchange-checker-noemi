@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 export function TabHistory({ fromCurrency, toCurrency }) {
     const [marketData, setMarketData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const icons = {
+        up: '▲',
+        down: '▼',
+        flat: ''
+    };
 
     useEffect(() => {
         async function fetchTabData() {
@@ -41,15 +46,19 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                 const lastRate = rateToday;                            // 2. LAST RATE
                 const changeValue = rateToday - rateYesterday;          // 3. CHANGE
                 const percentChange = (changeValue / rateYesterday) * 100; // 4. % CHANGE
-                
+
                 const decimals = toCurrency.code === 'JPY' ? 2 : 4;
+
+                let trend = 'flat';
+                if (changeValue > 0) trend = 'up';
+                if (changeValue < 0) trend = 'down';
 
                 setMarketData({
                     open: openRate.toFixed(decimals),
                     last: lastRate.toFixed(decimals),
                     change: (changeValue > 0 ? '+' : '') + changeValue.toFixed(decimals),
                     percent: (percentChange > 0 ? '+' : '') + percentChange.toFixed(2) + '%',
-                    isUp: changeValue >= 0
+                    trend: trend
                 });
 
                 setLoading(false);
@@ -60,15 +69,22 @@ export function TabHistory({ fromCurrency, toCurrency }) {
         }
 
         fetchTabData();
-    }, [fromCurrency, toCurrency]); // Re-execútase se o usuario cambia de moeda en App.js
+    }, [fromCurrency, toCurrency]);
 
     if (loading) return <div className="text-neutral-500 p-4">Cargando datos...</div>;
-    if (!marketData) return <div className="text-neutral-500 p-4">Non hai datos dispoñibles.</div>;
-
+    if (!marketData) return (
+        <div className="flex flex-col items-center justify-center w-[1036px] h-[154px] gap-200">
+            <p className="text-neutral-100 text-preset-2">No chart data available.</p>
+            <p className="text-preset-4 text-neutral-200 w-[508px] text-center">
+                We could't load rate history for USD/EUR right now.
+                This usually clears up in a minute.
+            </p>
+        </div>
+    )
     console.log("historyTab executado coa moeda:", fromCurrency);
     return (
         <div className="">
-            
+
             <div className="flex justify-start gap-200 w-[740px] h-[81px]">
                 <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
                     <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Open</span>
@@ -90,7 +106,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                 <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
                     <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">% Change</span>
                     <span className={`text-preset-2 ${marketData.isUp ? 'text-green-500' : 'text-red-500'}`}>
-                        <span>{marketData.isUp ? '▲' : '▼'}</span> {marketData.percent}
+                        <span>{icons[marketData.trend]}</span> {marketData.percent}
                     </span>
                 </div>
             </div>

@@ -128,7 +128,7 @@ export default function LiveMarketsTicker() {
             {/* Variación 100% matemática calculada coa API */}
             <span className={`flex items-center gap-0.5 font-bold text-preset-5 ${
               pair.trend === 'up' ? 'text-green-500' : 
-              pair.trend === 'down' ? 'text-red-500' : 'text-neutral-400'
+              pair.trend === 'down' ? 'text-red-500' : 'text-neutral-200'
             }`}>
               {pair.trend === 'up' && '▲ +'}
               {pair.trend === 'down' && '▼ -'}

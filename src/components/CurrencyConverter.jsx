@@ -4,22 +4,18 @@ import SwapButton from './SwapButton';
 import SendCard from './SendCard';
 import ReceiveCard from './ReceiveCard';
 import ConversionFooter from './ConversionFooter';
-
-//import LogButton from './LogButton';
-//import FavoriteButton from './FavoriteButton';
+import { useLog } from '../context/LogContext';
 
 export default function CurrencyConverter({ amount, setAmount, fromCurrency, setFromCurrency, toCurrency, setToCurrency, convertedAmount, loading }) {
   // Estados para o control do usuario
   const [resultAmount, setResultAmount] = useState(0);
-  //const [isEditing, setIsEditing] = useState(false);
 
   // Estados para os datos da API
   const [rates, setRates] = useState({})        // Gardará o obxecto con todas as moedas
   //const [loading, setLoading] = useState(true)  // Para saber se a API está cargando
   const [error, setError] = useState(null)      // Por se falla a conexión á internet
 
-  //const [isPinned, setIsPinned] = useState(false)
-  // const [isPressed, setIsPressed] = useState(false)
+  const { isLogging, addLogEntry } = useLog();
 
   const unitFromAmount = amount && Number(amount) !== 0
     ? (convertedAmount / Number(amount)).toFixed(4)
@@ -31,14 +27,28 @@ export default function CurrencyConverter({ amount, setAmount, fromCurrency, set
     setToCurrency(temp);
   };
 
+  // Efecto que escoita en tempo real as variables e as grava se o interruptor está "On"
+  useEffect(() => {
+    console.log("Efecto de gravación activo?", { isLogging, amount, convertedAmount });
+    
+    // 1. Filtro rápido: se non gravamos ou as cantidades son cero, paramos aquí
+    if (!isLogging || Number(amount) === 0 || Number(convertedAmount) === 0) return;
+
+    // 2. Engadimos o temporizador para que non grave mentres estás a borrar ou escribir rápido
+    const timer = setTimeout(() => {
+        addLogEntry(amount, fromCurrency, convertedAmount, toCurrency);
+    }, 1000); // Agarda 1 segundo de calma antes de gardar
+
+    // 3. Cancela o reloxo anterior se o usuario preme outra tecla antes de que pase o segundo
+    return () => clearTimeout(timer);
+
+}, [amount, fromCurrency, convertedAmount, toCurrency, isLogging]); 
 
   // Se a API aínda está cargando, podemos dar un aviso discreto
   if (loading) return <div className="text-center text-neutral-400 py-10">Loading live exchange rates...</div>
   if (error) return <div className="text-center text-red-500 py-10">Error: {error}</div>
 
   return (
-
-
     <section className="flex flex-col justify-around gap-4">
       <h1 className="uppercase text-preset-2">Check the rate</h1>
       <div className="bg-neutral-700 radius-20 w-[1036px] h-[223px]">
