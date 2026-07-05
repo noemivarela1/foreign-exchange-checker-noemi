@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 export function TabHistory({ fromCurrency, toCurrency }) {
     const [marketData, setMarketData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -12,8 +13,21 @@ export function TabHistory({ fromCurrency, toCurrency }) {
         async function fetchTabData() {
             try {
                 const localDate = new Date();
-                localDate.setDate(localDate.getDate() - 1);
-                const yesterdayStr = localDate.toLocaleDateString('sv-SE');
+                const dayOfWeek = localDate.getDay(); // 0 = Domingo, 1 = Luns, 6 = Sábado
+
+                // LÓXICA ANTIL-NaN PARA FINS DE SEMANA:
+                // Aseguramos que a url reciba unha data na que a bolsa estivo aberta
+                if (dayOfWeek === 0) { // Domingo ➔ Pedimos dende o xoves anterior para pillar xoves e venres
+                    localDate.setDate(localDate.getDate() - 3);
+                } else if (dayOfWeek === 6) { // Sábado ➔ Pedimos dende o xoves anterior para pillar xoves e venres
+                    localDate.setDate(localDate.getDate() - 2);
+                } else if (dayOfWeek === 1) { // Luns ➔ Pedimos dende o xoves anterior para pillar o venres
+                    localDate.setDate(localDate.getDate() - 4);
+                } else { // Martes a Venres ➔ Onte normal
+                    localDate.setDate(localDate.getDate() - 1);
+                }
+                
+                const yesterdayStr = localDate.toISOString().split('T')[0];
 
                 // 1. Chamada á mesma URL que manexa o teu proxecto
                 const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${yesterdayStr}`);
@@ -48,16 +62,27 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                 const percentChange = (changeValue / rateYesterday) * 100; // 4. % CHANGE
 
                 const decimals = toCurrency.code === 'JPY' ? 2 : 4;
+                const formattedPercent = percentChange.toFixed(2);
 
+                // Lóxica estrita de 3 estados para tendencias e signos (Evita o -0.00%)
                 let trend = 'flat';
-                if (changeValue > 0) trend = 'up';
-                if (changeValue < 0) trend = 'down';
+                let changeSign = '';
+                let percentSign = '';
+
+                if (Number(changeValue) > 0) {
+                    trend = 'up';
+                    changeSign = '+';
+                    percentSign = '+';
+                } else if (Number(changeValue) < 0) {
+                    trend = 'down';
+                    // O signo menos xa ven de forma nativa no número de JavaScript
+                }
 
                 setMarketData({
                     open: openRate.toFixed(decimals),
                     last: lastRate.toFixed(decimals),
-                    change: (changeValue > 0 ? '+' : '') + changeValue.toFixed(decimals),
-                    percent: (percentChange > 0 ? '+' : '') + percentChange.toFixed(2) + '%',
+                    change: (Number(changeValue.toFixed(decimals)) === 0 ? '' : changeSign) + changeValue.toFixed(decimals),
+                    percent: (Number(changeValue) === 0 ? '0.00%' : percentSign + formattedPercent + '%'),
                     trend: trend
                 });
 
@@ -81,10 +106,15 @@ export function TabHistory({ fromCurrency, toCurrency }) {
             </p>
         </div>
     )
+    
     console.log("historyTab executado coa moeda:", fromCurrency);
+
+    // Controis para as túas clases dinámicas do teu return
+    const isZero = marketData.trend === 'flat';
+    const isPositive = marketData.trend === 'up';
+
     return (
         <div className="">
-
             <div className="flex justify-start gap-200 w-[740px] h-[81px]">
                 <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
                     <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Open</span>
@@ -96,16 +126,18 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                     <span className="text-preset-2 text-neutral-50">{marketData.last}</span>
                 </div>
 
+                {/* CORRECCIÓN: Aplicamos os 3 estados visuais (neutro/gris se vale 0) coa túa sintaxe exacta */}
                 <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
                     <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Change</span>
-                    <span className={`text-preset-2 ${marketData.isUp ? 'text-green-500' : 'text-red-500'}`}>
+                    <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
                         {marketData.change}
                     </span>
                 </div>
 
-                <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
+                {/* CORRECCIÓN: O mesmo para o % Change, controlando os 3 estados e as iconas */}
+                <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-700 w-[140px] h-[81px]">
                     <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">% Change</span>
-                    <span className={`text-preset-2 ${marketData.isUp ? 'text-green-500' : 'text-red-500'}`}>
+                    <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
                         <span>{icons[marketData.trend]}</span> {marketData.percent}
                     </span>
                 </div>
