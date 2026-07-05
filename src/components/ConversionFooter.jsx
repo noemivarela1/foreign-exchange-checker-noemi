@@ -9,7 +9,7 @@ export default function conversionFooter({ fromCurrency, toCurrency, unitFromAmo
         {loading ? "Cargando..." : `1 ${fromCurrency.code} = ${unitFromAmount} ${toCurrency.code}`}
       </p>
       <div className="flex gap-1.5 px-250 py-200">
-        <FavoriteButton /> 
+        <FavoriteButton fromCurrency={fromCurrency} toCurrency={toCurrency} /> 
         <LogButton />
       </div>
     </div>

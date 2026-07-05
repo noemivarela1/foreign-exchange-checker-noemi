@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {FavoritesProvider} from './context/FavoritesContext';
 import { LogProvider } from './context/LogContext';
 import { currencyRates } from './hooks/currencyRates';
 import Header from './components/Header'
@@ -34,28 +35,30 @@ function App() {
   }
 
   return (
-    <LogProvider>
-      <div className="app-container">
-        {/* CABECEIRA CO LOGO */}
-        <Header totalMoedas={totalMoedas} loading={loading} />
-        {/* TICKER BANNER */}
-        <LiveMarketsTicker />
-        {/* CONTIDO PRINCIPAL*/}
-        <main className="card-container w-full max-w-[1100px] mx-auto px-8 py-12">
-          <CurrencyConverter
-            amount={amount} setAmount={setAmount}
-            fromCurrency={fromCurrency} setFromCurrency={setFromCurrency}
-            toCurrency={toCurrency} setToCurrency={setToCurrency}
-            convertedAmount={convertedAmount} loading={loading}
-          />
-          <DashBoard
-            amount={amount}
-            fromCurrency={fromCurrency}
-            toCurrency={toCurrency}
-          />
-        </main>
-      </div>
-    </LogProvider>
+    <FavoritesProvider>
+      <LogProvider>
+        <div className="app-container">
+          {/* CABECEIRA CO LOGO */}
+          <Header totalMoedas={totalMoedas} loading={loading} />
+          {/* TICKER BANNER */}
+          <LiveMarketsTicker />
+          {/* CONTIDO PRINCIPAL*/}
+          <main className="card-container w-full max-w-[1100px] mx-auto px-8 py-12">
+            <CurrencyConverter
+              amount={amount} setAmount={setAmount}
+              fromCurrency={fromCurrency} setFromCurrency={setFromCurrency}
+              toCurrency={toCurrency} setToCurrency={setToCurrency}
+              convertedAmount={convertedAmount} loading={loading}
+            />
+            <DashBoard
+              amount={amount}
+              fromCurrency={fromCurrency}
+              toCurrency={toCurrency}
+            />
+          </main>
+        </div>
+      </LogProvider>
+    </FavoritesProvider>
   );
 }
 
