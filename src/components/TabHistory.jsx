@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 export function TabHistory({ fromCurrency, toCurrency }) {
     const [marketData, setMarketData] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const [activeRange, setActiveRange] = useState('1M'); // '1M' activo por defecto
+    const timeRanges = ['1D', '1W', '1M', "3M", '1Y', '5Y'];
+
     const icons = {
         up: '▲',
         down: '▼',
@@ -26,7 +30,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                 } else { // Martes a Venres ➔ Onte normal
                     localDate.setDate(localDate.getDate() - 1);
                 }
-                
+
                 const yesterdayStr = localDate.toISOString().split('T')[0];
 
                 // 1. Chamada á mesma URL que manexa o teu proxecto
@@ -106,7 +110,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
             </p>
         </div>
     )
-    
+
     console.log("historyTab executado coa moeda:", fromCurrency);
 
     // Controis para as túas clases dinámicas do teu return
@@ -115,31 +119,52 @@ export function TabHistory({ fromCurrency, toCurrency }) {
 
     return (
         <div className="">
-            <div className="flex justify-start gap-200 w-[740px] h-[81px]">
-                <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
-                    <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Open</span>
-                    <span className="text-preset-2 text-neutral-50">{marketData.open}</span>
-                </div>
+            <div className="flex items-center">
+                <div className="flex justify-start gap-200 w-[740px] h-[81px]">
+                    <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
+                        <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Open</span>
+                        <span className="text-preset-2 text-neutral-50">{marketData.open}</span>
+                    </div>
 
-                <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
-                    <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Last</span>
-                    <span className="text-preset-2 text-neutral-50">{marketData.last}</span>
-                </div>
+                    <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
+                        <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Last</span>
+                        <span className="text-preset-2 text-neutral-50">{marketData.last}</span>
+                    </div>
 
-                {/* CORRECCIÓN: Aplicamos os 3 estados visuais (neutro/gris se vale 0) coa túa sintaxe exacta */}
-                <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
-                    <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Change</span>
-                    <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                        {marketData.change}
-                    </span>
-                </div>
+                    {/* CORRECCIÓN: Aplicamos os 3 estados visuais (neutro/gris se vale 0) coa túa sintaxe exacta */}
+                    <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
+                        <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Change</span>
+                        <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
+                            {marketData.change}
+                        </span>
+                    </div>
 
-                {/* CORRECCIÓN: O mesmo para o % Change, controlando os 3 estados e as iconas */}
-                <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-700 w-[140px] h-[81px]">
-                    <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">% Change</span>
-                    <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                        <span>{icons[marketData.trend]}</span> {marketData.percent}
-                    </span>
+                    {/* CORRECCIÓN: O mesmo para o % Change, controlando os 3 estados e as iconas */}
+                    <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-700 w-[140px] h-[81px]">
+                        <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">% Change</span>
+                        <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
+                            <span>{icons[marketData.trend]}</span> {marketData.percent}
+                        </span>
+                    </div>
+                </div>
+                <div className="flex justify-end items-center bg-neutral-700">
+                    {timeRanges.map((range) => {
+                        const isActive = activeRange === range;
+                        return (
+                            <button
+                                key={range}
+                                onClick={() => setActiveRange(range)}
+                                onFocus={() => setActiveRange(range)}
+                                className={`uppercase text-preset-5 border-2 border-transparent rounded-8 px-200 py-150 cursor-pointer focus:outline-none transition-all duration-150 h-[38px] w-[47px]
+                            ${isActive
+                                        ? 'text-neutral-50 bg-neutral-500 focus-visible:border-lime-500 focus-visible:outline-2 focus-visible:outline-2 focus-visible:outline-offset-2'
+                                        : 'border-transparent text-neutral-200 hover:text-neutral-50 hover:bg-neutral-500 '
+                                    }`}
+                            >
+                                {range}
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
         </div>
