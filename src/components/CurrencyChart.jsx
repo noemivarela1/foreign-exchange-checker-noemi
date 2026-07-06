@@ -9,16 +9,16 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
     useEffect(() => {
         const now = new Date();
 
-        // 1. Obtemos o mes abreviado de 3 letras en inglés (Ex: "Jul") e pasámolo a maiúsculas ("JUL")
+        // Obtemos o mes abreviado de 3 letras en inglés (Ex: "Jul") e pasámolo a maiúsculas ("JUL")
         const month = now.toLocaleString('en-US', { month: 'short' }).toUpperCase();
 
-        // 2. Obtemos o día con dous díxitos (Ex: "06")
+        // Obtemos o día con dous díxitos (Ex: "06")
         const day = now.toLocaleString('en-US', { day: '2-digit' });
 
-        // 3. Obtemos a hora e minutos con formato 24 horas (Ex: "17:42")
+        // Obtemos a hora e minutos con formato 24 horas (Ex: "17:42")
         const time = now.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-        // 4. Obtemos de forma intelixente a zona horaria curta oficial (Ex: "CEST" ou "CET")
+        // Obtemos de forma intelixente a zona horaria curta oficial (Ex: "CEST" ou "CET")
         // Se por algún motivo o navegador devolve un huso longo, aplicamos un "fallback" seguro a CET
         const timeZoneParts = now.toLocaleDateString('en-US', { day: 'numeric', timeZoneName: 'short' }).split(', ');
         const timeZone = timeZoneParts[1] || 'CET';
@@ -42,7 +42,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
                     return;
                 }
 
-                // 1. CALCULAMOS A DATA DE INICIO SEGUNDO OS TEUS 6 RANGOS EXACTOS
+                // CALCULAMOS A DATA DE INICIO SEGUNDO OS TEUS 6 RANGOS EXACTOS
                 const endDate = new Date();
                 const startDate = new Date();
                 console.log("activeRange:" + activeRange);
@@ -61,7 +61,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
 
                 const startDateStr = startDate.toISOString().split('T')[0];
 
-                // 2. PETICIÓN Á API DE FRANKFURTER V2
+                // PETICIÓN Á API DE FRANKFURTER V2
                 const url = `https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCode}&quotes=${toCode}`;
                 console.log("url:" + url);
                 const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCode}&quotes=${toCode}`);
@@ -85,7 +85,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
     if (loading) return <div className="text-neutral-500 p-4 text-preset-5 uppercase animate-pulse">Loading chart...</div>;
     if (chartData.length === 0) return null;
 
-    // 3. MATEMÁTICAS DO SVG PARA AXUSTAR OS PREZOS ÁS DIMENSIÓNS DO CADRADO
+    // MATEMÁTICAS DO SVG PARA AXUSTAR OS PREZOS ÁS DIMENSIÓNS DO CADRADO
     const width = 996;
     const height = 298;
     const paddingX = 60; // Espazo para as etiquetas do eixe Y
@@ -165,7 +165,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
                     );
                 })}
 
-                {/* CORRECCIÓN: Separamos e calculamos as coordenadas X e Y de forma limpa para o path do degradado */}
+                {/* Separamos e calculamos as coordenadas X e Y de forma limpa para o path do degradado */}
                 {chartData.length > 1 && (() => {
                     const firstPoint = points.split(' ')[0].split(',');
                     const lastPoint = points.split(' ').pop().split(',');
