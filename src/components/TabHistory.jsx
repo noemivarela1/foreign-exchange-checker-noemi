@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { CurrencyChart } from './CurrencyChart'; 
 
 export function TabHistory({ fromCurrency, toCurrency }) {
     const [marketData, setMarketData] = useState(null);
@@ -167,6 +168,12 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                     })}
                 </div>
             </div>
+            <CurrencyChart 
+                fromCurrency={fromCurrency} 
+                toCurrency={toCurrency}
+                lastToRange={marketData.last} 
+                activeRange={activeRange} 
+            />
         </div>
     );
 }
