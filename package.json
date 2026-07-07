@@ -9,6 +9,7 @@
     "build": "vite build --base=./",
     "lint": "eslint .",
     "preview": "vite preview",
+    "predeploy": "rimraf dist node_modules/.cache/gh-pages && vite build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

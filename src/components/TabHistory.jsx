@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CurrencyChart } from './CurrencyChart'; 
+import { CurrencyChart } from './CurrencyChart';
 
 export function TabHistory({ fromCurrency, toCurrency }) {
     const [marketData, setMarketData] = useState(null);
@@ -17,25 +17,36 @@ export function TabHistory({ fromCurrency, toCurrency }) {
     useEffect(() => {
         async function fetchTabData() {
             try {
+                console.log("activeRange:" + activeRange);
                 const localDate = new Date();
                 const dayOfWeek = localDate.getDay(); // 0 = Domingo, 1 = Luns, 6 = Sábado
 
-                // LÓXICA ANTIL-NaN PARA FINS DE SEMANA:
-                // Aseguramos que a url reciba unha data na que a bolsa estivo aberta
-                if (dayOfWeek === 0) { // Domingo ➔ Pedimos dende o xoves anterior para pillar xoves e venres
-                    localDate.setDate(localDate.getDate() - 3);
-                } else if (dayOfWeek === 6) { // Sábado ➔ Pedimos dende o xoves anterior para pillar xoves e venres
-                    localDate.setDate(localDate.getDate() - 2);
-                } else if (dayOfWeek === 1) { // Luns ➔ Pedimos dende o xoves anterior para pillar o venres
-                    localDate.setDate(localDate.getDate() - 4);
-                } else { // Martes a Venres ➔ Onte normal
-                    localDate.setDate(localDate.getDate() - 1);
+                const endDate = new Date();
+                const startDate = new Date();
+                console.log("activeRange:" + activeRange);
+                if (activeRange === '1D') startDate.setDate(endDate.getDate() - 1);
+                else if (activeRange === '1W') startDate.setDate(endDate.getDate() - 7);
+                else if (activeRange === '1M') startDate.setDate(endDate.getDate() - 30);
+                else if (activeRange === '3M') startDate.setDate(endDate.getDate() - 90);
+                else if (activeRange === '1Y') startDate.setFullYear(endDate.getFullYear() - 1);
+                else if (activeRange === '5Y') startDate.setFullYear(endDate.getFullYear() - 5);
+
+                // CORRECCIÓN DO FIN DE SEMANA: Comprobamos o día da semana da data calculated (startDate)
+                const startDayOfWeek = startDate.getDay(); // 0 = Domingo, 6 = Sábado
+
+                if (startDayOfWeek === 0) {
+                    startDate.setDate(startDate.getDate() - 2); // Se caeu en domingo, recuamos ao venres (-2 días)
+                } else if (startDayOfWeek === 6) {
+                    startDate.setDate(startDate.getDate() - 1); // Se caeu en sábado, recuamos ao venres (-1 día)
                 }
 
-                const yesterdayStr = localDate.toISOString().split('T')[0];
+                const startDateStr = startDate.toISOString().split('T')[0];
+                console.log("startDateStr:" + startDateStr);
 
-                // 1. Chamada á mesma URL que manexa o teu proxecto
-                const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${yesterdayStr}`);
+                //const yesterdayStr = localDate.toISOString().split('T')[0];
+
+                // Chamada á mesma URL que manexa o teu proxecto
+                const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCurrency.code}&quotes=${toCurrency.code}`);
                 const data = await response.json();
 
                 if (!data || data.length === 0) {
@@ -43,28 +54,18 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                     return;
                 }
 
-                // 2. Extraemos as datas para separar onte de hoxe
-                const availableDates = [...new Set(data.map(item => item.date))].sort();
-                const oldestDay = availableDates[0];
-                const newestDay = availableDates[availableDates.length - 1] || oldestDay;
+                // 2. CORRECCIÓN V2: Lemos o primeiro elemento do array e o último de forma estrita
+                const firstRow = data[0];
+                const lastRow = data[data.length - 1];
 
-                // 3. Mapeamos os prezos baseados en EUR nativo
-                const ratesYesterday = { EUR: 1 };
-                const ratesToday = { EUR: 1 };
+                // 3. Mapeamos os prezos baseados en EUR nativo de forma directa dende as filas de v2
+                // Frankfurter v2 en rangos devolve estruturas con .rate directo na fila
+                const openRate = firstRow.rate;   // O prezo de apertura ao INICIO do rango
+                const lastRate = lastRow.rate;     // O prezo de peche de HOXE ao FINAL do rango
 
-                data.forEach(item => {
-                    if (item.date === oldestDay) ratesYesterday[item.quote] = item.rate;
-                    if (item.date === newestDay) ratesToday[item.quote] = item.rate;
-                });
-
-                // 4. Calculamos os 4 datos requiridos de forma matemática para as moedas activas
-                const rateToday = ratesToday[toCurrency.code] / ratesToday[fromCurrency.code];
-                const rateYesterday = ratesYesterday[toCurrency.code] / ratesYesterday[fromCurrency.code];
-
-                const openRate = rateYesterday;                        // 1. OPEN RATE
-                const lastRate = rateToday;                            // 2. LAST RATE
-                const changeValue = rateToday - rateYesterday;          // 3. CHANGE
-                const percentChange = (changeValue / rateYesterday) * 100; // 4. % CHANGE
+                // 4. Calculamos os 4 datos requiridos de forma matemática segura
+                const changeValue = lastRate - openRate;
+                const percentChange = (changeValue / openRate) * 100;
 
                 const decimals = toCurrency.code === 'JPY' ? 2 : 4;
                 const formattedPercent = percentChange.toFixed(2);
@@ -80,7 +81,6 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                     percentSign = '+';
                 } else if (Number(changeValue) < 0) {
                     trend = 'down';
-                    // O signo menos xa ven de forma nativa no número de JavaScript
                 }
 
                 setMarketData({
@@ -92,6 +92,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                 });
 
                 setLoading(false);
+
             } catch (error) {
                 console.error("Erro na pestana History:", error);
                 setLoading(false);
@@ -99,7 +100,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
         }
 
         fetchTabData();
-    }, [fromCurrency, toCurrency]);
+    }, [fromCurrency, toCurrency, activeRange]);
 
     if (loading) return <div className="text-neutral-500 p-4">Cargando datos...</div>;
     if (!marketData) return (
@@ -168,11 +169,11 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                     })}
                 </div>
             </div>
-            <CurrencyChart 
-                fromCurrency={fromCurrency} 
+            <CurrencyChart
+                fromCurrency={fromCurrency}
                 toCurrency={toCurrency}
-                lastToRange={marketData.last} 
-                activeRange={activeRange} 
+                lastToRange={marketData.last}
+                activeRange={activeRange}
             />
         </div>
     );

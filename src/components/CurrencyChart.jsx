@@ -4,7 +4,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
     const [chartData, setChartData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [formattedDate, setFormattedDate] = useState('');
-    console.log("last:"+lastToRange);
+    console.log("last:" + lastToRange);
 
     useEffect(() => {
         const now = new Date();
@@ -122,7 +122,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
                 <span className="text-preset-3-medium">{fromCurrency.code}/{toCurrency.code}</span>
                 <span className="text-preset-5"> {lastToRange} • {formattedDate}</span>
             </div>
-            <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full select-none">
+            <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full select-none" focusable="false">
                 <defs>
                     <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor="#CEF739" stopOpacity="0.90" />
@@ -156,11 +156,21 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
                         ? paddingX + (width - paddingX - 20) / 2
                         : paddingX + (index / (chartData.length - 1)) * (width - paddingX - 20);
 
-                    const formattedDate = new Date(d.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
+                    const isLongRange = activeRange === '1Y' || activeRange === '5Y';
+
+                    // 1. Sacamos o Mes e o Día para que sexa igual en tódolos rangos
+                    const baseDate = new Date(d.date);
+                    const monthDay = baseDate.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
+
+                    // 2. AMAÑO COHERENTE: Se é rango longo, engadímoslle a coma e os 2 díxitos do ano á dereita
+                    const formattedDateStr = isLongRange
+                        ? `${monthDay}, ${baseDate.getFullYear().toString().slice(-2)}` // Amosa: "Jul 07, 25" ou "Jan 06, 26"
+                        : monthDay; // Amosa: "Jun 07" ou "Jul 07" coma sempre
+
 
                     return (
-                        <text key={index} x={x} y={height - 5} textAnchor="middle" style={{ fill: 'var(--color-neutral-200)' }} className="text-[11px]">
-                            {formattedDate}
+                        <text key={index} x={x-10} y={height - 5} textAnchor="middle" style={{ fill: 'var(--color-neutral-200)' }} className="text-preset-6">
+                            {formattedDateStr}
                         </text>
                     );
                 })}
