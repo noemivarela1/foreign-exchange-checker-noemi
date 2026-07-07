@@ -44,7 +44,7 @@ export default function CurrencyPicker({ value, onChange, defaultValue }) {
     }, [isOpen]);
 
     return (
-        <div ref={pickerRef} className="relative inline-block text-left w-full sm:w-auto">
+        <div ref={pickerRef} className="relative inline-block text-left">
 
             {/* BOTÓN PRINCIPAL (Popover trigger) */}
             <button
@@ -53,13 +53,12 @@ export default function CurrencyPicker({ value, onChange, defaultValue }) {
                     setIsOpen(!isOpen);
                     setSearchTerm(''); // Limpamos a busca ao abrir/pechar
                 }}
-                className="flex items-center h-[46px] justify-between gap-1 p-125 border-[1.5px] border-neutral-500 rounded-lg bg-neutral-500 text-neutral-50 cursor-pointer w-full transition-colors focus:outline-2 focus:outline-lime-500 focus:outline-offset-2 hover:border-neutral-500"
+                className="flex items-center h-500 w-[96px] border-solid justify-between gap-100 p-125 border-[1.5px] border-neutral-500 rounded-8 bg-neutral-500 text-neutral-50 cursor-pointer w-full transition-colors focus:outline-2 focus:outline-lime-500 focus:outline-offset-2 hover:border-neutral-500 overflow-hidden"
             >
-                <div className="flex items-center gap-2">
-                    {/* Mostra a bandeira usando a propiedade nativa dos teus datos */}
-                    <img src={currentOption.flag} alt={currentOption.name} className="w-5 h-5 rounded-full object-cover" />
-                    <span className="text-preset-4">{currentOption.code}</span>
-                </div>
+
+                {/* Mostra a bandeira usando a propiedade nativa dos teus datos */}
+                <img src={currentOption.flag} alt={currentOption.name} className="w-5 h-5 rounded-full object-cover" />
+                <span className="text-preset-4">{currentOption.code}</span>
                 <img src="images/icon-chevron-down.svg" alt="chevron" className={`${isOpen ? 'rotate-180' : ''}`} />
             </button>
 
@@ -128,7 +127,7 @@ export default function CurrencyPicker({ value, onChange, defaultValue }) {
                             <>
                                 <div className="flex justify-between p-3 text-preset-5 text-neutral-200">
                                     <div className="uppercase tracking-wider">
-                                        Other currencies 
+                                        Other currencies
                                     </div>
                                     <div>
                                         ({numberOfOther})

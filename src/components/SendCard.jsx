@@ -6,9 +6,9 @@ export default function SendCard({ amount, setAmount, fromCurrency, setFromCurre
     const [isEditing, setIsEditing] = useState(false);
 
     return (
-        <article className="flex flex-col justify-between bg-neutral-600 border-[1.5px] border-neutral-500 rounded-16 p-250 w-[450px] h-[118px] p-0">
+        <article className="flex flex-col justify-between bg-neutral-600 border-[1.5px] gap-250px border-neutral-500 rounded-16 p-200 md:p-250 w-[311px] h-[109px] md:min-w-[292px] md:h-[117px] xl:min-w-[450px]">
             <h2 className="uppercase text-preset-4">Send</h2>
-            <div className="flex justify-between items-end">
+            <div className="flex justify-between items-baseline">
                 <input
                     type="text"
                     value={
@@ -40,7 +40,8 @@ export default function SendCard({ amount, setAmount, fromCurrency, setFromCurre
                             setAmount(val); // Gardamos o valor limpo para que o 'Receive' faga os seus cálculos
                         }
                     }}
-                    className="text-preset-1 w-[8ch] p-0 border border-neutral-500 rounded-lg bg-transparent text-neutral-50 placeholder-neutral-400 focus:outline-none focus:border-lime-500 transition-colors"
+                    className="xl:text-preset-1 text-preset-1-tablet w-[8ch] p-0 leading-none border border-transparent border-neutral-500 rounded-16 bg-transparent text-neutral-50 placeholder-neutral-400 focus:outline-none focus:border-lime-500 transition-colors"
+                    
                 />
 
                 <CurrencyPicker

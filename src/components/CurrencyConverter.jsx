@@ -49,10 +49,10 @@ export default function CurrencyConverter({ amount, setAmount, fromCurrency, set
   if (error) return <div className="text-center text-red-500 py-10">Error: {error}</div>
 
   return (
-    <section className="flex flex-col justify-around gap-4">
+    <section className="flex flex-col w-full md:-w-[720px] xl:-w-[1036px]  md:justify-around gap-200">
       <h1 className="uppercase text-preset-2">Check the rate</h1>
-      <div className="bg-neutral-700 radius-20 w-[1036px] h-[223px]">
-        <div className="flex items-center justify-center gap-300 h-[158px]">
+      <div className="self-center bg-neutral-700 radius-20 w-[343px] h-[421px] md:w-[720px] xl:w-[1036px] md:h-[223px]">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-200 p-200 md:p-250">
           <SendCard
             amount={amount}
             setAmount={setAmount}

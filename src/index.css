@@ -76,14 +76,17 @@
   font-weight: 700;           /* JetBrains Mono Bold (Peso 700) */
   line-height: 1;             /* Line height do 100% */
   letter-spacing: -0.5px;     /* Espazado de letras  */
+  font-size: 40px;
+}
+
+@utility text-preset-1-tablet {
+  font-family: var(--font-jetbrains);
+  font-weight: 700;           /* JetBrains Mono Bold (Peso 700) */
+  line-height: 1;             /* Line height do 100% */
+  letter-spacing: -0.5px;     /* Espazado de letras  */
   
   /* 1. Tamaño base para Móbiles e Tablets (Ata 767px de ancho) */
   font-size: 32px;            
-  
-  /* 2. Cando a pantalla sexa un ordenador ou escritorio (Ancho maior ou igual a 768px) */
-  @media (min-width: 768px) {
-    font-size: 40px;          /* Sube aos 40px automaticamente */
-  }
 }
 
 @utility text-preset-2 {
@@ -130,7 +133,7 @@
   font-family: var(--font-jetbrains);
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1;
   letter-spacing: 1px;
 }
 
