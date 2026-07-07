@@ -3,7 +3,7 @@
 /* Rexistramos o arquivo de fontes e dámoslle un nome á familia */
 @font-face {
   font-family: 'JetBrains Mono'; /* 👈 O nome inventado para a familia */
-  src: url('./fonts/jetbrains-mono/jetbrains-mono-variable.ttf') format('truetype');
+  src: url('/fonts/jetbrains-mono/jetbrains-mono-variable.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
 }
