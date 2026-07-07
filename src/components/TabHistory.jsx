@@ -54,11 +54,11 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                     return;
                 }
 
-                // 2. CORRECCIÓN V2: Lemos o primeiro elemento do array e o último de forma estrita
+                // Lemos o primeiro elemento do array e o último de forma estrita
                 const firstRow = data[0];
                 const lastRow = data[data.length - 1];
 
-                // 3. Mapeamos os prezos baseados en EUR nativo de forma directa dende as filas de v2
+                // Mapeamos os prezos baseados en EUR nativo de forma directa dende as filas de v2
                 // Frankfurter v2 en rangos devolve estruturas con .rate directo na fila
                 const openRate = firstRow.rate;   // O prezo de apertura ao INICIO do rango
                 const lastRate = lastRow.rate;     // O prezo de peche de HOXE ao FINAL do rango
@@ -133,7 +133,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                         <span className="text-preset-2 text-neutral-50">{marketData.last}</span>
                     </div>
 
-                    {/* CORRECCIÓN: Aplicamos os 3 estados visuais (neutro/gris se vale 0) coa túa sintaxe exacta */}
+                    {/* Aplicamos os 3 estados visuais (neutro/gris se vale 0) coa túa sintaxe exacta */}
                     <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
                         <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Change</span>
                         <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
@@ -141,7 +141,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                         </span>
                     </div>
 
-                    {/* CORRECCIÓN: O mesmo para o % Change, controlando os 3 estados e as iconas */}
+                    {/* O mesmo para o % Change, controlando os 3 estados e as iconas */}
                     <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-700 w-[140px] h-[81px]">
                         <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">% Change</span>
                         <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>

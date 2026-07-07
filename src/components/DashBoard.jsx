@@ -23,45 +23,71 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
         }
     };
 
+    const handleKeyDown = (e) => {
+        const tabs = ['history', 'compare', 'favorites', 'log'];
+        const currentIndex = tabs.indexOf(activeTab);
+
+        if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            const nextIndex = (currentIndex + 1) % tabs.length;
+            setActiveTab(tabs[nextIndex]);
+            // Buscamos o botón no DOM para mover o foco visual do bordo verde
+            document.querySelectorAll('[role="tab"]')[nextIndex]?.focus();
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            const prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+            setActiveTab(tabs[prevIndex]);
+            document.querySelectorAll('[role="tab"]')[prevIndex]?.focus();
+        }
+    };
+
     return (
         <div className="w-[1036px] bg-neutral-900">
-            <nav className="flex gap-1.5 border-b border-neutral-800 mt-400 w-full">
+            <nav onKeyDown={handleKeyDown} role="tablist" className="flex gap-1.5 border-b border-neutral-800 mt-400 w-full">
                 <button
                     onClick={() => setActiveTab('history')}
-                    onFocus={() => setActiveTab('history')}
+                    role="tab"
+                    aria-selected={activeTab === 'history'}
+                    tabIndex={activeTab === 'history' ? 0 : -1}
                     className={`uppercase text-preset-3 px-200 h-[40px] border-2 cursor-pointer focus:outline-none ${activeTab === 'history'
-                            ? 'text-lime-500 border-b-lime-500 border-t-transparent border-x-transparent focus-visible:border-lime-500 rounded'
-                            : 'text-neutral-50 border-transparent focus-visible:border-lime-500 rounded'
+                        ? 'text-lime-500 border-b-lime-500 border-t-transparent border-x-transparent focus-visible:border-lime-500 rounded'
+                        : 'text-neutral-50 border-transparent focus-visible:border-lime-500 rounded'
                         }`}
                 >
                     History
                 </button>
-                 <button
+                <button
                     onClick={() => setActiveTab('compare')}
-                    onFocus={() => setActiveTab('compare')}
+                    role="tab"
+                    aria-selected={activeTab === 'compare'}
+                    tabIndex={activeTab === 'compare' ? 0 : -1}
                     className={`uppercase text-preset-3 px-200 h-[40px] border-2 cursor-pointer focus:outline-none ${activeTab === 'compare'
-                            ? 'text-lime-500 border-b-lime-500 border-t-transparent border-x-transparent focus-visible:border-lime-500 rounded'
-                            : 'text-neutral-50 border-transparent focus-visible:border-lime-500 rounded'
+                        ? 'text-lime-500 border-b-lime-500 border-t-transparent border-x-transparent focus-visible:border-lime-500 rounded'
+                        : 'text-neutral-50 border-transparent focus-visible:border-lime-500 rounded'
                         }`}
                 >
                     Compare
                 </button>
                 <button
                     onClick={() => setActiveTab('favorites')}
-                    onFocus={() => setActiveTab('favorites')}
+                    role="tab"
+                    aria-selected={activeTab === 'favorites'}
+                    tabIndex={activeTab === 'favorites' ? 0 : -1}
                     className={`uppercase text-preset-3 px-200 h-[40px] border-2 cursor-pointer focus:outline-none ${activeTab === 'favorites'
-                            ? 'text-lime-500 border-b-lime-500 border-t-transparent border-x-transparent focus-visible:border-lime-500 rounded'
-                            : 'text-neutral-50 border-transparent focus-visible:border-lime-500 rounded'
+                        ? 'text-lime-500 border-b-lime-500 border-t-transparent border-x-transparent focus-visible:border-lime-500 rounded'
+                        : 'text-neutral-50 border-transparent focus-visible:border-lime-500 rounded'
                         }`}
                 >
                     Favorites
                 </button>
                 <button
                     onClick={() => setActiveTab('log')}
-                    onFocus={() => setActiveTab('log')}
+                    role="tab"
+                    aria-selected={activeTab === 'log'}
+                    tabIndex={activeTab === 'log' ? 0 : -1}
                     className={`uppercase text-preset-3 px-200 h-[40px] border-2 cursor-pointer focus:outline-none ${activeTab === 'log'
-                            ? 'text-lime-500 border-b-lime-500 border-t-transparent border-x-transparent focus-visible:border-lime-500 rounded'
-                            : 'text-neutral-50 border-transparent focus-visible:border-lime-500 rounded'
+                        ? 'text-lime-500 border-b-lime-500 border-t-transparent border-x-transparent focus-visible:border-lime-500 rounded'
+                        : 'text-neutral-50 border-transparent focus-visible:border-lime-500 rounded'
                         }`}
                 >
                     Log
