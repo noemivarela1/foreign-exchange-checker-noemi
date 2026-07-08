@@ -46,23 +46,26 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                 //const yesterdayStr = localDate.toISOString().split('T')[0];
 
                 // Chamada á mesma URL que manexa o teu proxecto
-                const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCurrency.code}&quotes=${toCurrency.code}`);
+                console.log("URL API TAB history:" + `https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCurrency.code}&quotes=${toCurrency.code}`);
+                const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCurrency.code}&quotes=${toCurrency.code}`, {
+                    cache: "no-store" // Forza a consulta en tempo real
+                });
                 const data = await response.json();
-
+                console.log(JSON.stringify(data, null, 2));
                 if (!data || data.length === 0) {
                     setLoading(false);
                     return;
                 }
-
+                console.log("data[0]:" + data[0] + "data[30]" + data[30].rate);
                 // Lemos o primeiro elemento do array e o último de forma estrita
                 const firstRow = data[0];
                 const lastRow = data[data.length - 1];
-
+                console.log("lonxitude:" + data.length + "lastRow:" + lastRow.rate);
                 // Mapeamos os prezos baseados en EUR nativo de forma directa dende as filas de v2
                 // Frankfurter v2 en rangos devolve estruturas con .rate directo na fila
                 const openRate = firstRow.rate;   // O prezo de apertura ao INICIO do rango
                 const lastRate = lastRow.rate;     // O prezo de peche de HOXE ao FINAL do rango
-
+                console.log("openRate:" + openRate + " lastRate:" + lastRate);
                 // 4. Calculamos os 4 datos requiridos de forma matemática segura
                 const changeValue = lastRate - openRate;
                 const percentChange = (changeValue / openRate) * 100;
@@ -120,21 +123,21 @@ export function TabHistory({ fromCurrency, toCurrency }) {
     const isPositive = marketData.trend === 'up';
 
     return (
-        <div className="">
-            <div className="flex items-center">
-                <div className="flex justify-start gap-200 w-[740px] h-[81px]">
-                    <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
+        <div className="flex items-center flex-col gap-250">
+            <div className="flex flex-col xl:flex-row items-center justify-between w-[343px] h-[234px] md:w-[720px] md:h-[143px] gap-250 xl:w-[1036px] xl:h-[81px]">
+                <div className="flex justify-center gap-125 items-center md:gap-200 items-center md:justify-start flex-wrap gap-125 w-[343px] h-[172px] md:w-[720px] xl:w-[1036px] xl:h-[81px]">
+                    <div className="flex flex-col gap-125 md:gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[166px] md:w-[140px] h-[81px]">
                         <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Open</span>
                         <span className="text-preset-2 text-neutral-50">{marketData.open}</span>
                     </div>
 
-                    <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
+                    <div className="flex flex-col gap-125 md:gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[166px] md:w-[140px] h-[81px]">
                         <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Last</span>
                         <span className="text-preset-2 text-neutral-50">{marketData.last}</span>
                     </div>
 
                     {/* Aplicamos os 3 estados visuais (neutro/gris se vale 0) coa túa sintaxe exacta */}
-                    <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[140px] h-[81px]">
+                    <div className="flex flex-col gap-125 md:gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[166px] md:w-[140px] h-[81px]">
                         <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Change</span>
                         <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
                             {marketData.change}
@@ -142,14 +145,14 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                     </div>
 
                     {/* O mesmo para o % Change, controlando os 3 estados e as iconas */}
-                    <div className="flex flex-col gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-700 w-[140px] h-[81px]">
+                    <div className="flex flex-col gap-125 md:gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-700 w-[166px] md:w-[140px] h-[81px]">
                         <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">% Change</span>
                         <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
                             <span>{icons[marketData.trend]}</span> {marketData.percent}
                         </span>
                     </div>
                 </div>
-                <div className="flex justify-end items-center bg-neutral-700">
+                <div className="flex self-start p-025 md:justify-end items-center bg-neutral-700 xl:self-end">
                     {timeRanges.map((range) => {
                         const isActive = activeRange === range;
                         return (

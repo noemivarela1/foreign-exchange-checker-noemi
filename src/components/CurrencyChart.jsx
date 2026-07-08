@@ -82,12 +82,37 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
         fetchChartHistory();
     }, [fromCurrency, toCurrency, activeRange, isOnline]);
 
-    if (loading) return <div className="text-neutral-500 p-4 text-preset-5 uppercase animate-pulse">Loading chart...</div>;
-    if (chartData.length === 0) return null;
+    
 
     // MATEMÁTICAS DO SVG PARA AXUSTAR OS PREZOS ÁS DIMENSIÓNS DO CADRADO
-    const width = 996;
-    const height = 298;
+    //const width = 996;
+    //const height = 298;
+
+    const getGraphWidth = () => {
+        const widthNow = window.innerWidth;
+        if (widthNow < 768) {
+            return 319;   //Ancho estrito para móbil
+        } else if (widthNow >= 768 && widthNow < 1024) {
+            return 680;   // Ancho estrito para tablet
+        } else {
+            return 996;   //Ancho estrito para desktop
+        }
+    };
+
+    // 2. ESTADOS DINÁMICOS DO GRÁFICO
+    const [width, setWidth] = useState(getGraphWidth());
+    const height = 298; // O alto mantense fixo a 298px en tódolos tamaños
+
+    // 3. EFECTO QUE ESCOITA O RESIZE E ACTUALIZA O ANCHO DE SOLPETO
+    useEffect(() => {
+        const handleResize = () => {
+            setWidth(getGraphWidth());
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const paddingX = 60; // Espazo para as etiquetas do eixe Y
     const paddingY = 30; // Espazo para as etiquetas do eixe X
 
@@ -116,9 +141,12 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
         rawIndexes.filter(i => i >= 0 && i < totalPoints)
     )];
 
+    if (loading) return <div className="text-neutral-500 p-4 text-preset-5 uppercase animate-pulse">Loading chart...</div>;
+    if (chartData.length === 0) return null;
+
     return (
-        <div className="w-[1036px] h-[377px] p-250 bg-neutral-800/20 rounded-16 border border-neutral-700/50 flex flex-col justify-center items-center">
-            <div className="flex justify-between items-center text-neutral-50 w-[996px]">
+        <div className="w-[319px] h-[398px] md:w-[720px] md:h-[377px] md:gap-250 xl:w-[1036px] xl:h-[377px] md:p-250 bg-neutral-800/20 rounded-16 border border-neutral-700/50 flex flex-col justify-center items-center">
+            <div className="flex justify-between items-center text-neutral-50 md:w-[680px] w-[319px] xl:w-[996px]">
                 <span className="text-preset-3-medium">{fromCurrency.code}/{toCurrency.code}</span>
                 <span className="text-preset-5"> {lastToRange} • {formattedDate}</span>
             </div>
@@ -169,7 +197,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
 
 
                     return (
-                        <text key={index} x={x-10} y={height - 5} textAnchor="middle" style={{ fill: 'var(--color-neutral-200)' }} className="text-preset-6">
+                        <text key={index} x={x - 10} y={height - 5} textAnchor="middle" style={{ fill: 'var(--color-neutral-200)' }} className="text-preset-6">
                             {formattedDateStr}
                         </text>
                     );

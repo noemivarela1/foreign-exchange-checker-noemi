@@ -37,7 +37,9 @@ export default function LiveMarketsTicker() {
                 const yesterdayStr = localDate.toLocaleDateString('sv-SE');
                 console.log("data de onte:" + yesterdayStr);
                 // Chamada á API coa URL de frankfurter
-                const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${yesterdayStr}`);
+                const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${yesterdayStr}`, {
+                    cache: "no-store" // Forza a consulta en tempo real
+                });
                 const data = await response.json();
 
                 if (!data || data.length === 0) {
@@ -140,8 +142,8 @@ export default function LiveMarketsTicker() {
                             {pair.rate}
                         </span>
                         {/* Variación 100% matemática calculada coa API */}
-                        <span className={`flex items-center md:text-preset-5 text-preset-6 ${pair.trend === 'up' ? 'text-green-500' :
-                                pair.trend === 'down' ? 'text-red-500' : 'text-neutral-200'
+                        <span className={`flex items-center gitmd:text-preset-5 text-preset-6 ${pair.trend === 'up' ? 'text-green-500' :
+                            pair.trend === 'down' ? 'text-red-500' : 'text-neutral-200'
                             }`}>
                             {pair.trend === 'up' && '▲ +'}
                             {pair.trend === 'down' && '▼ -'}

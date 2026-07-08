@@ -43,7 +43,7 @@ function App() {
           {/* TICKER BANNER */}
           <LiveMarketsTicker />
           {/* CONTIDO PRINCIPAL*/}
-          <main className="card-container w-full max-w-[1100px] mx-auto px-8 py-12">
+          <main className="flex flex-col items-center card-container max-w-[1100px] py-400 mx-auto md:px-8 md:py-12">
             <CurrencyConverter
               amount={amount} setAmount={setAmount}
               fromCurrency={fromCurrency} setFromCurrency={setFromCurrency}
