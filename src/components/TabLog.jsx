@@ -46,17 +46,17 @@ export function TabLog({ amount }) {
 
     if (!isOnline || hasNoAmount || hasNoLogs) {
         return (
-            <div className="flex flex-col items-center justify-center w-[1036px] h-[154px] gap-200">
+            <div className="flex flex-col items-center justify-center p-125 xl:w-[1036px] md:w-[768px] xl:h-[154px] gap-200">
                 {/* Título dinámico segundo o estado */}
                 <p className="text-neutral-100 text-preset-2">
-                    {!isOnline || hasNoAmount ? "No comparison available." : "No conversions logged yet."}
+                    {hasNoLogs ? "No conversions logged yet." : ""}
                 </p>
 
                 {/* Descrición dinámica segundo o estado */}
-                <p className="text-preset-4 text-neutral-200 text-center w-[740px]">
+                <p className="text-preset-4 text-neutral-200 text-center  md:w-[500px] w-[343px]">
                     {!isOnline ? (
                         "You are currently offline. Please check your internet connection."
-                    ) : hasNoAmount ? (
+                    ) : hasNoLogs ? (
                         "Enter an amount in SEND to see what your money is worth in your conversion log."
                     ) : (
                         "Every conversion is recorded here when you tap LOG CONVERSION. Your log is private to this session and this browser."

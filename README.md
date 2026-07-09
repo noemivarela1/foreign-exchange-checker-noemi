@@ -22,31 +22,31 @@ This is a solution to the [FX Checker challenge on Frontend Mentor](https://www.
 
 ### The challenge
 
-Your users should be able to:
+User actions:
 
 #### Converter
 
-<!-- - Enter an amount to send and see it convert in real time as they type
-- Pick the "send" and "receive" currencies from a searchable currency picker
-- See the live exchange rate for the active pair (for example, `1 USD = 0.8530 EUR`)
-- Swap the send and receive currencies with the swap button
-- Favorite the active pair, and log a conversion to their history -->
+- Live conversion: Calculates and displays exchange amounts dynamically
+- Smart currency selector: Features a searchable list to easily choose origin and destination currencies.
+- Rate display: Shows market rates for the active pair.
+- Currency flipping: Includes a dedicated button to reverse the transaction direction.
+- Favorites & Logs: Allows bookmarking preferred pairs and archiving previous conversions.
 
 #### Currency picker
 
-<!--  - Search the full list of available currencies by code or name
-- See currencies grouped into "Popular" and "Other currencies", each row showing the flag, code, and name
-- See a check against the currency that's currently selected -->
+- Smart Currency Search: Browse the complete global currency catalog instantly by code or name.
+- Categorized Layout: Streamlined UI grouping currencies into "Popular" and "Other" with high-quality visual flags.
+- Instant State Feedback: Checkmark indicator showing the currently active currency.
 
 #### Live markets ticker
 
-<!-- - See a ticker of currency pairs, each with its current rate and 24-hour change (up or down) -->
+- Currency ticker: Displays dynamic currency pairs with exchange rates and 24-hour price trends (positive/negative).
 
 #### Rate history
 
-<!-- - View a line and area chart of the active pair's rate over time
-- Switch the chart range between 1D, 1W, 1M, 3M, 1Y, and 5Y
-- See the open, last, absolute change, and percentage change for the selected range -->
+- Interactive Historical Charts: Visual data trends via a combined line and gradient area chart across custom timeframes.
+- Flexible Timeframe Toggles: Switch chart ranges from intraday (1D) up to long-term macro views (5Y).
+- Comprehensive Market Metrics: Instant breakdown of latest rate, and net/percentage variations.
 
 #### Compare
 
@@ -93,13 +93,11 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 ### Built with
 
 - Semantic HTML5 markup
-<!-- - CSS custom properties
-- Flexbox --> 
-<!-- - CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles -->
+- [Tailwind CSS] (https://tailwindcss.com/)
+- Mobile-first UI strategy
+- Flexbox (Flexible Box Layout) - 1D (one-dimensional) layout model designed to distribute space and align items inside a container
+- [React](https://reactjs.org/) -  Open-source, component-based JavaScript library designed specifically for building user interfaces (UIs) 
+- [Vite](https://vite.dev/) - Ultra-fast, modern build tool that handles frontend development setup and bundling
 
 
 ### What I learned

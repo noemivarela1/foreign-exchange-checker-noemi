@@ -41,7 +41,7 @@ export default function LiveMarketsTicker() {
                     cache: "no-store" // Forza a consulta en tempo real
                 });
                 const data = await response.json();
-
+                console.log("liveMarketsTicker"+JSON.stringify(data, null, 2));
                 if (!data || data.length === 0) {
                     setLoading(false);
                     return;

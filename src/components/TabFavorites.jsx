@@ -133,19 +133,18 @@ export function TabFavorites({ amount }) {
 
     if (!isOnline || hasNoAmount || hasNoFavorites) {
         return (
-            <div className="flex flex-col items-center justify-center w-[1036px] h-[154px] gap-200">
+            <div className="flex flex-col items-center justify-center p-125 xl:w-[1036px] md:w-[768px] xl:h-[154px] gap-200">
                 {/* Título dinámico segundo o erro */}
                 <p className="text-neutral-100 text-preset-2">
-                    {!isOnline || hasNoAmount ? "No comparison available." : "No pinned pairs yet."}
+                    {hasNoFavorites ? "No pinned pairs yet" : ""}
                 </p>
 
                 {/* Descrición dinámica segundo o erro */}
-                <p className="text-preset-4 text-neutral-200 text-center w-[460px]">
+                <p className="text-preset-4 text-neutral-200 text-center xl:md-[460px] w-[343px]">
                     {!isOnline ? (
                         "You are currently offline. Please check your internet connection."
-                    ) : hasNoAmount ? (
-                        "Enter an amount in SEND to see what your money is worth in your favorite currencies."
-                    ) : (
+                    ) :
+                     (
                         "Pin a pair to track its rate here. Tap the star icon on any conversion or comparison row."
                     )}
                 </p>

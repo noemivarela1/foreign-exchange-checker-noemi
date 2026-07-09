@@ -22,9 +22,9 @@ export function TabCompare({ amount, fromCurrency }) {
     // 2. Condición combinada: se amount é 0 OU se non hai internet
     if (Number(amount) === 0 || !isOnline) {
         return (
-            <div className="flex flex-col items-center justify-center w-[1036px] h-[154px] gap-200">
+            <div className="flex flex-col items-center justify-center p-125 w-[343px] xl:w-[1036px] md:w-[768px] xl:h-[154px] gap-200">
                 <p className="text-neutral-100 text-preset-2">No comparison available.</p>
-                <p className="text-preset-4 text-neutral-200 text-center w-[460px]">
+                <p className="text-preset-4 text-neutral-200 text-center w-[343px] md:w-[460px]">
                     {!isOnline 
                         ? "You are currently offline. Please check your internet connection."
                         : "Enter an amount in SEND above to see what your money is worth in other currencies."
