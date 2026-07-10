@@ -53,7 +53,7 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
             case 'history':
                 return <TabHistory fromCurrency={fromCurrency} toCurrency={toCurrency} />;
             case 'compare':
-                return <TabCompare amount={amount} fromCurrency={fromCurrency} />;
+                return <TabCompare amount={amount} fromCurrency={fromCurrency} toCurrency={toCurrency}/>;
             case 'favorites':
                 return <TabFavorites amount={amount} />;
             case 'log':

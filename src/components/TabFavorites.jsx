@@ -207,7 +207,7 @@ export function TabFavorites({ amount }) {
                                     className="hover:text-neutral-500 cursor-pointer transition-colors focus:outline-none"
                                     aria-label="Unpin currency pair"
                                 >
-                                    <img src="./images/icon-star-filled.svg" alt="favorite" className="border-2 border-lime-500 p-100 rounded-8 w-400" />
+                                    <img src="./images/icon-star-filled.svg" alt="favorite" className="border-2 border-lime-500  rounded-8 w-400 h-400" />
                                 </button>
                             </div>
                         </div>
