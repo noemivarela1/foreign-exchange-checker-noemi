@@ -73,13 +73,13 @@ User actions:
 
 ### Screenshot
 
-[Foreign exchange checker desktop landing page](./images/screenshots/landing-page-desktop.png)
+![Foreign exchange checker desktop landing page](./images/screenshots/landing-page-desktop.png)
 
 
 ### Links
 
 - Solution URL: [GitHub repository](https://github.com/noemivarela1/foreign-exchange-checker-noemi)
-- Live Site URL: [Live deme](https://noemivarela1.github.io/foreign-exchange-checker-noemi/)
+- Live Site URL: [Live demo](https://noemivarela1.github.io/foreign-exchange-checker-noemi/)
 
 ## My process
 
