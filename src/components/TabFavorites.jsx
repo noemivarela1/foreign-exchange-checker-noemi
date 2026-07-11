@@ -152,7 +152,7 @@ export function TabFavorites({ amount }) {
         );
     }
     return (
-        <div className="flex flex-col w-[1036px] gap-250 p-250 text-neutral-200 mx-auto bg-neutral-700/30 rounded-xl border border-neutral-600 rounded-16">
+        <div className="flex flex-col w-[343px] md:w-[720px] xl:w-[1036px] gap-200 p-200 md:gap-250 md:p-250 text-neutral-200 mx-auto bg-neutral-700/30 rounded-xl border border-neutral-600 rounded-16">
             {/* Cabeceira co contador oficial esixido ("10 favorites") */}
             <div className="flex justify-between items-center">
                 <h3 className="text-preset-3-medium uppercase text-neutral-50  tracking-wider">
@@ -163,7 +163,7 @@ export function TabFavorites({ amount }) {
             </div>
 
             {/* Mapeo dinámico da lista de favoritos con estrelas cheas permanentes */}
-            <div className="flex flex-col max-h-[596px] w-[996px] overflow-y-auto gap-250 no-scrollbar">
+            <div className="flex flex-col w-[311px] md:w-[680px] md:max-h-[596px] xl:w-[996px] overflow-y-auto gap-250 no-scrollbar">
                 {pinnedPairs.map((pair) => {
                     // Lemos os datos cargados de Frankfurter ou poñemos un indicador de carga
                     const liveData = ratesData[pair.id] || { rate: 'Loading...', change: '0.00%' };
@@ -172,7 +172,7 @@ export function TabFavorites({ amount }) {
                     return (
                         <div
                             key={pair.id}
-                            className="flex justify-between items-center h-[59px] px-200 py-150 bg-neutral-600/80 rounded border border-neutral-500/50 hover:border-neutral-600/50 transition-all duration-150"
+                            className="flex justify-between items-center h-[59px] md:px-200 md:py-150 gap-200 p-200 bg-neutral-600/80 rounded border border-neutral-500/50 hover:border-neutral-600/50 transition-all duration-150"
                         >
                             {/* Nome do par co formato esixido: "USD ➔ EUR" */}
                             <div className="flex items-center gap-100 text-preset-4">
@@ -207,7 +207,7 @@ export function TabFavorites({ amount }) {
                                     className="hover:text-neutral-500 cursor-pointer transition-colors focus:outline-none"
                                     aria-label="Unpin currency pair"
                                 >
-                                    <img src="./images/icon-star-filled.svg" alt="favorite" className="border-2 border-lime-500  rounded-8 w-400 h-400" />
+                                    <img src="./images/icon-star-filled.svg" alt="favorite" className="border-2 border-lime-500  rounded-8 w-400 p-100" />
                                 </button>
                             </div>
                         </div>
