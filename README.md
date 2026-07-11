@@ -86,7 +86,7 @@ User actions:
 ### Built with
 
 - Semantic HTML5 markup
-- [Tailwind CSS] (https://tailwindcss.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - Mobile-first UI strategy
 - Flexbox (Flexible Box Layout) - 1D (one-dimensional) layout model designed to distribute space and align items inside a container
 - [React](https://reactjs.org/) -  Open-source, component-based JavaScript library designed specifically for building user interfaces (UIs) 
