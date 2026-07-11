@@ -111,8 +111,6 @@ I plan to continue refining this application by focusing on:
 
 ### AI Collaboration
 
-### AI Collaboration & Pair Programming
-
 For this challenge, I collaborated with an AI assistant (Gemini) to act as a technical peer and pair programmer. This collaboration was highly beneficial for:
 
 - **Debugging & Problem Solving**: Diagnosing and resolving complex state synchronization issues between custom React Contexts and browser storage APIs.
