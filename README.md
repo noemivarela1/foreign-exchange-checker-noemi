@@ -73,7 +73,7 @@ User actions:
 
 ### Screenshot
 
-![Foreign exchange checker desktop landing page](./images/screenshots/landing-page-desktop.png)
+![Foreign exchange checker desktop landing page](./public/images/screenshots/landing-page-desktop.png)
 
 
 ### Links
