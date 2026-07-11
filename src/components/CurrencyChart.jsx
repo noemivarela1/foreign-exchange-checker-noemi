@@ -4,7 +4,6 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
     const [chartData, setChartData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [formattedDate, setFormattedDate] = useState('');
-    console.log("last:" + lastToRange);
 
     useEffect(() => {
         const now = new Date();
@@ -45,7 +44,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
                 // CALCULAMOS A DATA DE INICIO SEGUNDO OS TEUS 6 RANGOS EXACTOS
                 const endDate = new Date();
                 const startDate = new Date();
-                console.log("activeRange:" + activeRange);
+            
                 if (activeRange === '1D') startDate.setDate(endDate.getDate() - 1);
                 else if (activeRange === '1W') startDate.setDate(endDate.getDate() - 7);
                 else if (activeRange === '1M') startDate.setDate(endDate.getDate() - 30);
@@ -62,8 +61,6 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
                 const startDateStr = startDate.toISOString().split('T')[0];
 
                 // PETICIÓN Á API DE FRANKFURTER V2
-                const url = `https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCode}&quotes=${toCode}`;
-                console.log("url:" + url);
                 const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCode}&quotes=${toCode}`);
                 const data = await response.json();
 
@@ -85,9 +82,6 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
     
 
     // MATEMÁTICAS DO SVG PARA AXUSTAR OS PREZOS ÁS DIMENSIÓNS DO CADRADO
-    //const width = 996;
-    //const height = 298;
-
     const getGraphWidth = () => {
         const widthNow = window.innerWidth;
         if (widthNow < 768) {
@@ -99,11 +93,11 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
         }
     };
 
-    // 2. ESTADOS DINÁMICOS DO GRÁFICO
+    // ESTADOS DINÁMICOS DO GRÁFICO
     const [width, setWidth] = useState(getGraphWidth());
     const height = 298; // O alto mantense fixo a 298px en tódolos tamaños
 
-    // 3. EFECTO QUE ESCOITA O RESIZE E ACTUALIZA O ANCHO DE SOLPETO
+    // EFECTO QUE ESCOITA O RESIZE E ACTUALIZA O ANCHO DE SOLPETO
     useEffect(() => {
         const handleResize = () => {
             setWidth(getGraphWidth());
@@ -134,7 +128,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
 
     // Escollemos 3 etiquetas representativas para o eixe X (Inicio, Medio, Final)
     const totalPoints = chartData.length;
-    console.log("totalPoints:" + totalPoints);
+    
     const rawIndexes = [0, Math.floor(totalPoints / 2), totalPoints - 1];
 
     const xLabelIndexes = [...new Set(
@@ -186,11 +180,11 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
 
                     const isLongRange = activeRange === '1Y' || activeRange === '5Y';
 
-                    // 1. Sacamos o Mes e o Día para que sexa igual en tódolos rangos
+                    // Sacamos o Mes e o Día para que sexa igual en tódolos rangos
                     const baseDate = new Date(d.date);
                     const monthDay = baseDate.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
 
-                    // 2. AMAÑO COHERENTE: Se é rango longo, engadímoslle a coma e os 2 díxitos do ano á dereita
+                    // Se é rango longo, engadímoslle a coma e os 2 díxitos do ano á dereita
                     const formattedDateStr = isLongRange
                         ? `${monthDay}, ${baseDate.getFullYear().toString().slice(-2)}` // Amosa: "Jul 07, 25" ou "Jan 06, 26"
                         : monthDay; // Amosa: "Jun 07" ou "Jul 07" coma sempre
@@ -232,5 +226,4 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
             </svg>
         </div>
     );
-
 }

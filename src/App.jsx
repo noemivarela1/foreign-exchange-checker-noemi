@@ -14,12 +14,10 @@ function App() {
   const [toCurrency, setToCurrency] = useState(currenciesMap['EUR']);
 
   const { convertedAmount, loading, rates } = currencyRates(amount, fromCurrency.code, toCurrency.code);
-  //const totalMoedas = rates ? Object.keys(rates).length : 0;
+ 
   const totalMoedas = rates && Object.keys(rates).length > 0
     ? currencies.filter(moneda => rates[moneda.code] !== undefined).length
     : 0;
-  console.log("rates ", rates);
-  console.log("totalMoedas ", totalMoedas);
 
   // NOVOS ESTADOS PARA AS 4 LAPELAS
   const [activeTab, setActiveTab] = useState('history') // Controla que lapela se ve
@@ -28,10 +26,8 @@ function App() {
 
   if (rates && Object.keys(rates).length > 0) {
     const moedasActivas = currencies.filter(m => rates[m.code] !== undefined);
-    console.log("Moedas que están a funcionar (Total " + moedasActivas.length + "):", moedasActivas.map(m => m.code));
 
     const moedasFallidas = currencies.filter(m => rates[m.code] === undefined);
-    console.log("ATOPADA! Esta é a moeda da túa lista que a API NON cargou:", moedasFallidas.map(m => m.code));
   }
 
   return (

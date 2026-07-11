@@ -8,11 +8,10 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
     const [rates, setRates] = useState({});
     const [loading, setLoading] = useState(true);
 
-    // 🚀 Extraemos as tres ferramentas reais do teu contexto de favoritos
+    // Extraemos as tres ferramentas reais do teu contexto de favoritos
     const { pinnedPairs, togglePinPair, unpinPair } = useFavorites();
     const favoritesContext = useFavorites();
-    console.log("Ferramentas reais do meu contexto:", favoritesContext);
-
+    
     useEffect(() => {
         // Funcións para actualizar o estado cando cambie a rede
         const goOnline = () => setIsOnline(true);
@@ -51,7 +50,6 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
                     });
 
                     setRates(formattedRates);
-                    console.log("Rates convertidos con éxito para o teu .map():", formattedRates);
                 } else {
                     console.warn("A API v2 non devolveu o array agardado. Revisa o endpoint.");
                     setRates({});
@@ -97,13 +95,12 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
             ) : (
                 <div className="flex flex-wrap gap-200 w-[311px] md:w-[680px] md:max-h-[572px] overflow-y-auto no-scrollbar xl:w-[996px] justify-start items-center">
                     {targetCurrencies.map((code, index) => {
-                        // 1. Buscamos a taxa que vén do servizo web para este código de 3 letras (Ex: rates["USD"])
+                        // Buscamos a taxa que vén do servizo web para este código de 3 letras (Ex: rates["USD"])
                         const rate = rates[code] || 0;
-                        console.log("rate:" + rate);
-                        // 2. Calculamos a conversión multiplicando a cantidade do Converter por ese número
+                        // Calculamos a conversión multiplicando a cantidade do Converter por ese número
                         const totalConversion = (Number(amount) * rate).toFixed(2);
 
-                        // 3. Extraemos os datos locais do teu currencies.js (Trae code, name, flag en webp)
+                        // Extraemos os datos locais do teu currencies.js (Trae code, name, flag en webp)
                         const currencyInfo = currenciesMap[code] || { name: code, flag: './images/flags/default.webp' };
 
                         // Verificamos se coincide co destino elixido no converter para o bordo verde lima
@@ -118,7 +115,6 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
 
 
                         const isPinned = !!existingPair;
-                        console.log("isPinned" + isPinned);
                         const handleFavoriteToggle = () => {
                             if (isPinned) {
                                 // Se xa é favorito, chamamos á túa función directa de borrar pasando o ID
@@ -182,8 +178,6 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
                         );
                     })}
                 </div>
-
-
             )}
         </div >
     );

@@ -28,18 +28,16 @@ export default function CurrencyConverter({ amount, setAmount, fromCurrency, set
   };
 
   // Efecto que escoita en tempo real as variables e as grava se o interruptor está "On"
-  useEffect(() => {
-    console.log("Efecto de gravación activo?", { isLogging, amount, convertedAmount });
-    
-    // 1. Filtro rápido: se non gravamos ou as cantidades son cero, paramos aquí
+  useEffect(() => { 
+    // Filtro rápido: se non gravamos ou as cantidades son cero, paramos aquí
     if (!isLogging || Number(amount) === 0 || Number(convertedAmount) === 0) return;
 
-    // 2. Engadimos o temporizador para que non grave mentres estás a borrar ou escribir rápido
+    // Engadimos o temporizador para que non grave mentres estás a borrar ou escribir rápido
     const timer = setTimeout(() => {
         addLogEntry(amount, fromCurrency, convertedAmount, toCurrency);
     }, 1000); // Agarda 1 segundo de calma antes de gardar
 
-    // 3. Cancela o reloxo anterior se o usuario preme outra tecla antes de que pase o segundo
+    // Cancela o reloxo anterior se o usuario preme outra tecla antes de que pase o segundo
     return () => clearTimeout(timer);
 
 }, [amount, fromCurrency, convertedAmount, toCurrency, isLogging]); 

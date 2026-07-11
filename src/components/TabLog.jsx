@@ -23,8 +23,7 @@ function formatTimeAgo(timestamp) {
 
 export function TabLog({ amount }) {
     const { conversionLog, clearLog, deleteLogEntry } = useLog();
-    console.log(conversionLog);
-    // 1. Control de conexión a internet
+    // Control de conexión a internet
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
     useEffect(() => {
@@ -40,7 +39,7 @@ export function TabLog({ amount }) {
         };
     }, []);
 
-    // 2. Condición: se non hai internet, se amount é 0, ou se o historial está baleiro
+    // Condición: se non hai internet, se amount é 0, ou se o historial está baleiro
     const hasNoAmount = Number(amount) === 0;
     const hasNoLogs = conversionLog.length === 0;
 

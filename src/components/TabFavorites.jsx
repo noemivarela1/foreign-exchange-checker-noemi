@@ -93,12 +93,12 @@ export function TabFavorites({ amount }) {
                     // CÁLCULO DA PORCENTAXE REAL DE 24H (Venres vs Xoves durante a fin de semana)
                     const changePct = ((rateToday - rateYesterday) / rateYesterday) * 100;
 
-                    // 1. Redondeamos primeiro a dous decimais para evitar problemas de micro-decimais
+                    // Redondeamos primeiro a dous decimais para evitar problemas de micro-decimais
                     const formattedChange = changePct.toFixed(2);
 
                     let changeText = '';
 
-                    // 2. Aplicamos a túa lóxica estrita de tres estados
+                    // Aplicamos a túa lóxica estrita de tres estados
                     if (Number(formattedChange) > 0) {
                         changeText = '+' + formattedChange + '%'; // Maior que 0.00 ➔ Signo +
                     } else if (Number(formattedChange) === 0) {
@@ -107,7 +107,7 @@ export function TabFavorites({ amount }) {
                         changeText = formattedChange + '%';        // Menor que 0.00 ➔ Signo - (xa o trae JavaScript por defecto)
                     }
 
-                    // 3. Gardamos o texto limpo no almacén de taxas
+                    // Gardamos o texto limpo no almacén de taxas
                     updatedRates[pair.id] = {
                         rate: rateToday.toFixed(4),
                         change: changeText

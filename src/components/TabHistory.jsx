@@ -17,13 +17,12 @@ export function TabHistory({ fromCurrency, toCurrency }) {
     useEffect(() => {
         async function fetchTabData() {
             try {
-                console.log("activeRange:" + activeRange);
                 const localDate = new Date();
                 const dayOfWeek = localDate.getDay(); // 0 = Domingo, 1 = Luns, 6 = Sábado
 
                 const endDate = new Date();
                 const startDate = new Date();
-                console.log("activeRange:" + activeRange);
+                
                 if (activeRange === '1D') startDate.setDate(endDate.getDate() - 1);
                 else if (activeRange === '1W') startDate.setDate(endDate.getDate() - 7);
                 else if (activeRange === '1M') startDate.setDate(endDate.getDate() - 30);
@@ -41,32 +40,25 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                 }
 
                 const startDateStr = startDate.toISOString().split('T')[0];
-                console.log("startDateStr:" + startDateStr);
-
-                //const yesterdayStr = localDate.toISOString().split('T')[0];
 
                 // Chamada á mesma URL que manexa o teu proxecto
-                console.log("URL API TAB history:" + `https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCurrency.code}&quotes=${toCurrency.code}`);
                 const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${startDateStr}&base=${fromCurrency.code}&quotes=${toCurrency.code}`, {
                     cache: "no-store" // Forza a consulta en tempo real
                 });
                 const data = await response.json();
-                //console.log(JSON.stringify(data, null, 2));
                 if (!data || data.length === 0) {
                     setLoading(false);
                     return;
                 }
-                console.log("data[0]:" + data[0] + "data[30]" + data[30].rate);
                 // Lemos o primeiro elemento do array e o último de forma estrita
                 const firstRow = data[0];
                 const lastRow = data[data.length - 1];
-                console.log("lonxitude:" + data.length + "lastRow:" + lastRow.rate);
                 // Mapeamos os prezos baseados en EUR nativo de forma directa dende as filas de v2
                 // Frankfurter v2 en rangos devolve estruturas con .rate directo na fila
                 const openRate = firstRow.rate;   // O prezo de apertura ao INICIO do rango
                 const lastRate = lastRow.rate;     // O prezo de peche de HOXE ao FINAL do rango
-                console.log("openRate:" + openRate + " lastRate:" + lastRate);
-                // 4. Calculamos os 4 datos requiridos de forma matemática segura
+                
+                // Calculamos os 4 datos requiridos de forma matemática segura
                 const changeValue = lastRate - openRate;
                 const percentChange = (changeValue / openRate) * 100;
 
@@ -105,7 +97,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
         fetchTabData();
     }, [fromCurrency, toCurrency, activeRange]);
 
-    if (loading) return <div className="text-neutral-500 p-4">Cargando datos...</div>;
+    if (loading) return <div className="text-neutral-500 p-4">Loading data...</div>;
     if (!marketData) return (
         <div className="flex flex-col items-center justify-center p-125 xl:w-[1036px] md:w-[768px] xl:h-[154px] gap-200">
             <p className="text-neutral-100 text-preset-2">No chart data available.</p>
@@ -115,8 +107,6 @@ export function TabHistory({ fromCurrency, toCurrency }) {
             </p>
         </div>
     )
-
-    console.log("historyTab executado coa moeda:", fromCurrency);
 
     // Controis para as túas clases dinámicas do teu return
     const isZero = marketData.trend === 'flat';

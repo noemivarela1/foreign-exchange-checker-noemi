@@ -92,7 +92,7 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
             {/* CONTEDOR DO DROPDOWN ACCESIBLE */}
             <div
                 className="block md:hidden mt-400 w-[343px] mx-auto relative"
-                onKeyDown={handleDropdownKeyDown} // 🚀 Controla as frechas Arriba/Abaixo e Enter
+                onKeyDown={handleDropdownKeyDown} // Controla as frechas Arriba/Abaixo e Enter
             >
                 {/* Botón principal (O que abre o menú) */}
                 <button

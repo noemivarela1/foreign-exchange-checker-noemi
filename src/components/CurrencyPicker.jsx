@@ -10,11 +10,11 @@ export default function CurrencyPicker({ value, onChange, defaultValue }) {
     // Referencia para detectar clics fóra do compoñente
     const pickerRef = useRef(null)
 
-    // 1. SOLUCIÓN CORRECTA: Usamos o teu array tal e como vén de currencies.js
+    // Usamos o array tal e como vén de currencies.js
     // Asegúrate de que no teu mapa usas "currency.flag" ou o nome exacto da túa propiedade
     const currenciesList = currencies;
 
-    // 2. Opción seleccionada actualmente para o botón principal
+    // Opción seleccionada actualmente para o botón principal
     const currentOption = currenciesList.find(opt => opt.code === value.code) || currenciesList[0];
 
     // Función común para filtrar as moedas segundo o que se escribe no buscador
@@ -22,11 +22,11 @@ export default function CurrencyPicker({ value, onChange, defaultValue }) {
         currency.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
         currency.name.toLowerCase().includes(searchTerm.toLowerCase());
 
-    // 3. SECCIÓN POPULARES: Filtradas por popularidade e texto de busca
+    // SECCIÓN POPULARES: Filtradas por popularidade e texto de busca
     const popularCurrencies = currenciesList.filter(currency => currency.popular && matchesSearch(currency));
     const numberOfPopular = popularCurrencies.length;
 
-    // 4. SECCIÓN OUTRAS MOEDAS: Filtradas por non popularidade e texto de busca
+    // SECCIÓN OUTRAS MOEDAS: Filtradas por non popularidade e texto de busca
     const otherCurrencies = currenciesList.filter(currency => !currency.popular && matchesSearch(currency));
     const numberOfOther = otherCurrencies.length;
 
@@ -64,7 +64,7 @@ export default function CurrencyPicker({ value, onChange, defaultValue }) {
 
             {/* <!-- Currency picker — popover opened from either currency button --> */}
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-[400px] rounded-lg bg-neutral-600 border border-neutral-700 shadow-xl z-50 overflow-hidden">
+                <div className="absolute right-0 mt-2 w-[295px] md:w-[400px] rounded-lg bg-neutral-600 border border-neutral-700 shadow-xl z-50 overflow-hidden">
 
                     {/* <!-- Search currencies... --> */}
                     <div className="m-2 p-3 h-{30px] border-[1.5px] border-neutral-50 rounded-6 flex items-center gap-2 bg-neutral-600">

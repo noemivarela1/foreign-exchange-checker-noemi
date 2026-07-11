@@ -1,11 +1,11 @@
 import React from 'react';
-// 1. Importamos o noso hook do contexto global de favoritos
+// Importamos o noso hook do contexto global de favoritos
 import { useFavorites } from '../context/FavoritesContext'; 
 
-// 2. CORRECCIÓN: Recibimos as dúas moedas actuais do conversor por props
+// Recibimos as dúas moedas actuais do conversor por props
 export default function FavoriteButton({ fromCurrency, toCurrency }) {
     
-    // 3. CORRECCIÓN: Conectamos co almacén global de favoritos
+    // Conectamos co almacén global de favoritos
     const { pinnedPairs, togglePinPair } = useFavorites();
 
     // Extraemos o texto simple (Ex: "USD") tanto se a moeda é un obxecto coma se é texto
@@ -13,7 +13,7 @@ export default function FavoriteButton({ fromCurrency, toCurrency }) {
     const toCode = toCurrency?.code || toCurrency;
     const pairId = `${fromCode}-${toCode}`;
 
-    // 4. LÓXICA INTELIXENTE: O botón sabe se esta parella exacta é favorita buscando na memoria
+    // O botón sabe se esta parella exacta é favorita buscando na memoria
     const isPinned = pinnedPairs.some(pair => pair.id === pairId);
 
     const handleFavoriteClick = () => {

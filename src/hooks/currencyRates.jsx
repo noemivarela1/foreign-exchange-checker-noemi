@@ -21,7 +21,7 @@ export function currencyRates(amount, fromCode, toCode) {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Erro cargando taxas:", err);
+        console.error("Error loading rates:", err);
         setLoading(false);
       });
   }, []);
@@ -44,7 +44,7 @@ export function currencyRates(amount, fromCode, toCode) {
       setConvertedAmount(0);
     }
   }, [amount, fromCode, toCode, rates, loading]);
- console.log(rates);
+ 
   // O hook devolve só o que o compoñente preciso para debuxar
   return { convertedAmount, loading, rates };
 }

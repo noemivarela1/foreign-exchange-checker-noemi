@@ -35,13 +35,13 @@ export default function LiveMarketsTicker() {
                     localDate.setDate(localDate.getDate() - 1);
                 }
                 const yesterdayStr = localDate.toLocaleDateString('sv-SE');
-                console.log("data de onte:" + yesterdayStr);
+                
                 // Chamada á API coa URL de frankfurter
                 const response = await fetch(`https://api.frankfurter.dev/v2/rates?from=${yesterdayStr}`, {
                     cache: "no-store" // Forza a consulta en tempo real
                 });
                 const data = await response.json();
-                console.log("liveMarketsTicker"+JSON.stringify(data, null, 2));
+              
                 if (!data || data.length === 0) {
                     setLoading(false);
                     return;
@@ -54,7 +54,7 @@ export default function LiveMarketsTicker() {
                 const oldestDay = availableDates[0];
                 const newestDay = availableDates[availableDates.length - 1] || oldestDay;
 
-                // 3. Inicializamos dous mapas baleiros para separar os prezos de cada día (Base EUR)
+                // Inicializamos dous mapas baleiros para separar os prezos de cada día (Base EUR)
                 const ratesYesterday = { EUR: 1 };
                 const ratesToday = { EUR: 1 };
 
