@@ -44,49 +44,42 @@ User actions:
 
 #### Rate history
 
-- Interactive Historical Charts: Visual data trends via a combined line and gradient area chart across custom timeframes.
-- Flexible Timeframe Toggles: Switch chart ranges from intraday (1D) up to long-term macro views (5Y).
-- Comprehensive Market Metrics: Instant breakdown of latest rate, and net/percentage variations.
+- **Interactive Historical Charts**: Visual data trends via a combined line and gradient area chart across custom timeframes.
+- **Flexible Timeframe Toggles**: Switch chart ranges from intraday (1D) up to long-term macro views (5Y).
+- **Comprehensive Market Metrics**: Instant breakdown of latest rate, and net/percentage variations.
 
 #### Compare
 
-<!--  - See their send amount converted into a range of other currencies at once, each with its reference rate
-- Pin or unpin any comparison row to their favorites -->
+- **Simultaneous Multi-Currency Conversion**: Instantly view any input amount converted into a wide range of global currencies at once, each displayed with its live reference rate.
+- **Dynamic Favorites Management**: Easily pin or unpin any comparison row to curate a personalized dashboard that synchronizes instantly across your workspace.
 
 #### Favorites
 
-<!--- See their pinned pairs, each with its live rate and 24-hour change
-- Load a pinned pair back into the converter by selecting its row
-- Unpin a pair they no longer want to track -->
+- **Real-Time Favorites Dashboard**: Monitor your bookmarked currency pairs alongside live exchange rates and 24-hour price fluctuations.
+<!--- Instant Converter Reload: Quickly load any pinned pair back into the main converter interface simply by clicking its row.-->
+- **Effortless Tracking Control**: Easily remove any currency pair from your watchlist with a single click when you no longer need to track it.
 
 #### Conversion log
 
-<!-- - See a log of conversions they've made, each showing the relative time, the pair, and the send and receive amounts
-- Clear the whole log
-- Delete an individual entry -->
+- **Comprehensive Conversion History**: Access a detailed log of all past conversions, featuring relative timestamps, currency pairs, and precise send/receive amounts.
+- **Global History Reset**: Clear the entire conversion log instantly with a single action to start fresh.
+- **Granular Entry Removal**: Delete individual history logs selectively to maintain full control over your recorded data.
 
 #### UI & accessibility
 
-<!-- - View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
-- Navigate the entire app using only their keyboard -->
+- **Fully Responsive UI Layout**: Experience an optimized user interface that adapts seamlessly to any screen size, from mobile devices to large desktops.
+- **Polished Interactive States**: View clean hover and focus visual indicators across all buttons, tabs, and interactive elements for enhanced feedback.
+- **Keyboard-Only Navigation**: Navigate and operate the entire application smoothly using exclusively the keyboard, ensuring high accessibility (A11y) standards.
 
 ### Screenshot
 
-<!--![](./screenshot.jpg)
+[Foreign exchange checker desktop landing page](./images/screenshots/landing-page-desktop.png)
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**-->
 
 ### Links
 
-<!--- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com) -->
+- Solution URL: [GitHub repository](https://github.com/noemivarela1/foreign-exchange-checker-noemi)
+- Live Site URL: [Live deme](https://noemivarela1.github.io/foreign-exchange-checker-noemi/)
 
 ## My process
 
@@ -102,66 +95,34 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### What I learned
 
-<!-- Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+Building this project was an incredible learning milestone, as it was my very first time working with React, Vite, and Tailwind CSS. Developing this application from scratch allowed me to elevate my existing knowledge of CSS responsivity and data formatting into a modern component-based architecture. 
 
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
-
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more. -->
+Throughout this challenge, I learned state management by implementing the React Context API alongside a dual-storage strategy: using `localStorage` to permanently persist favorites and `sessionStorage` to manage temporary conversion history. It also pushed me to implement defensive coding techniques, handling asynchronous API data safely with conditional guards. Additionally, I enhanced the application's overall user experience by designing synchronized counter badges for desktop, tablet and mobile views, ensuring high accessibility standards and real-time interface feedback.
 
 ### Continued development
 
-<!--Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect. -->
+I plan to continue refining this application by focusing on:
+- **Theme Customization**: Implementing a dark/light mode toggle utilizing Tailwind CSS variables.
+- **Code Refactoring**: Extracting repetitive API and storage logic into clean, reusable custom React hooks to improve maintainability.
 
 ### Useful resources
 
-<!-- - [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept. -->
+- [Frankfurter API Documentation](https://frankfurter.dev/) - The official API reference used to fetch reliable, up-to-date currency exchange rates and handle multi-currency conversions dynamically.
 
 ### AI Collaboration
 
-<!-- Describe how you used AI tools (if any) during this project. This helps demonstrate your ability to work effectively with AI assistants.
+### AI Collaboration & Pair Programming
 
-- What tools did you use (e.g., ChatGPT, Claude, GitHub Copilot)?
-- How did you use them (e.g., debugging, generating boilerplate, brainstorming solutions)?
-- What worked well? What didn't?
+For this challenge, I collaborated with an AI assistant (Gemini) to act as a technical peer and pair programmer. This collaboration was highly beneficial for:
 
--->
+- **Debugging & Problem Solving**: Diagnosing and resolving complex state synchronization issues between custom React Contexts and browser storage APIs.
+- **Refactoring & Optimization**: Restructuring repetitive logic and implementing defensive conditional programming to handle asynchronous API loading states without interface failures.
+- **Code Review & Quality**: Ensuring high-level Tailwind formatting practices, setting up responsive edge cases for mobile layouts, and refining semantic text formatting for financial data.
+
+This workflow allowed me to maintain absolute ownership of the application's architecture while significantly accelerating my learning curve with React, Vite, and Tailwind CSS.
+
 
 ## Author
 
 - Frontend Mentor - [@noemivarela1](https://www.frontendmentor.io/profile/noemivarela1)
 - X - [@noemivarelar](https://x.com/noemivarelar)
-
-<!--
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
--->
