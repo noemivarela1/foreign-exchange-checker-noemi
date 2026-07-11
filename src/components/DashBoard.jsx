@@ -6,7 +6,7 @@ import { TabCompare } from './TabCompare';
 import { TabFavorites } from './TabFavorites';
 import { TabLog } from './TabLog';
 
-export default function Dashboard({ amount, fromCurrency, toCurrency }) {
+export default function Dashboard({ amount, fromCurrency, toCurrency,setFromCurrency, setToCurrency}) {
     const [activeTab, setActiveTab] = useState('history'); // Estado inicial
     const [isKeyboard, setIsKeyboard] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +59,7 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
             case 'compare':
                 return <TabCompare amount={amount} fromCurrency={fromCurrency} toCurrency={toCurrency} />;
             case 'favorites':
-                return <TabFavorites amount={amount} />;
+                return <TabFavorites amount={amount} setFromCurrency={setFromCurrency} setToCurrency={setToCurrency} />;
             case 'log':
                 return <TabLog amount={amount} />;
             default:
@@ -86,7 +86,6 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
     };
 
     return (
-
         <div className="flex flex-col justify-center items-center w-[343px] md:w-[720px] xl:w-[1036px] bg-neutral-900">
 
             {/* CONTEDOR DO DROPDOWN ACCESIBLE */}

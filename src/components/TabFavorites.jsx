@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useFavorites } from '../context/FavoritesContext';
 
 
-export function TabFavorites({ amount }) {
+export function TabFavorites({ amount, setFromCurrency, setToCurrency }) {
     // Control de conexión a internet
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
     const { pinnedPairs, unpinPair } = useFavorites();
+    const [keyboardFocusedIndex, setKeyboardFocusedIndex] = useState(-1);
+    const [isKeyboardActive, setIsKeyboardActive] = useState(false);
 
     // Almacén local para gardar as taxas e porcentaxes calculadas de Frankfurter
     const [ratesData, setRatesData] = useState({});
@@ -125,6 +127,15 @@ export function TabFavorites({ amount }) {
         fetchRates();
     }, [pinnedPairs, isOnline]);
 
+    useEffect(() => {
+        // Buscamos o primeiro artigo da túa listaxe (o índice 0)
+        const firstArticle = document.getElementById('fav-item-0');
+        if (firstArticle) {
+            // Forzamos ao navegador a poñer o foco nel ao instante
+            firstArticle.focus();
+            setKeyboardFocusedIndex(0);
+        }
+    }, [pinnedPairs]);
 
 
     // Condición: se non hai internet, se amount é 0, ou se a lista de favoritos está baleira
@@ -164,15 +175,65 @@ export function TabFavorites({ amount }) {
 
             {/* Mapeo dinámico da lista de favoritos con estrelas cheas permanentes */}
             <div className="flex flex-col w-[311px] md:w-[680px] md:max-h-[596px] xl:w-[996px] overflow-y-auto gap-250 no-scrollbar">
-                {pinnedPairs.map((pair) => {
+                {pinnedPairs.map((pair, index) => {
                     // Lemos os datos cargados de Frankfurter ou poñemos un indicador de carga
                     const liveData = ratesData[pair.id] || { rate: 'Loading...', change: '0.00%' };
                     const isZero = liveData.change.includes('0.00%');
                     const isPositive = !isZero && !liveData.change.startsWith('-');
+                    const fromCurrencyObj = pair.from;
+                    const toCurrencyObj = pair.to;
+
+                    const handleKeyDown = (e) => {
+                        console.log("Teclado pulsado:", e.key, "Índice actual:", index);
+                        if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            setIsKeyboardActive(true);
+                            // Se o estado estaba apagado (-1), a primeira frecha acende estritamente a primeira tarxeta (0)
+                            const nextIdx = !isKeyboardActive ? 0 : index + 1;
+                            const nextArticle = document.getElementById(`fav-item-${nextIdx}`);
+
+                            if (nextArticle) {
+                                nextArticle.focus();
+                                setKeyboardFocusedIndex(nextIdx);
+                                setTimeout(() => {
+                                    nextArticle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                }, 0);
+                            }
+                        } else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            setIsKeyboardActive(true);
+                            const prevArticle = document.getElementById(`fav-item-${index - 1}`);
+                            if (prevArticle) {
+                                prevArticle.focus();
+                                setKeyboardFocusedIndex(index - 1);
+                                prevArticle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }
+                        } else if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            if (fromCurrencyObj && toCurrencyObj) {
+                                setFromCurrency(fromCurrencyObj);
+                                setToCurrency(toCurrencyObj);
+                            }
+                        }
+                    };
+
+
                     return (
-                        <div
+                        <article
                             key={pair.id}
-                            className="flex justify-between items-center h-[59px] md:px-200 md:py-150 gap-200 p-200 bg-neutral-600/80 rounded border border-neutral-500/50 hover:border-neutral-600/50 transition-all duration-150"
+                            id={`fav-item-${index}`} /* ID único para poder identificalo coas frechas */
+                            tabIndex={0}
+                            onKeyDown={handleKeyDown} //Captura as frechas, Enter e Espacio
+                            onClick={() => {
+                                if (fromCurrencyObj && toCurrencyObj) {
+                                    setFromCurrency(fromCurrencyObj); // Enche a caixa orixe de arriba
+                                    setToCurrency(toCurrencyObj);     // Enche a caixa destino de arriba
+                                }
+                            }}
+                            className={"flex justify-between items-center h-[59px] md:px-200 md:py-150 gap-200 p-200 bg-neutral-600/80 rounded-10 border-2 border-transparent hover:border-neutral-50 focus:outline-none  transition-all duration-150 " +
+                                (isKeyboardActive && keyboardFocusedIndex === index
+                                    ? "!border-lime-500 ring-1 ring-lime-500"
+                                    : "")}
                         >
                             {/* Nome do par co formato esixido: "USD ➔ EUR" */}
                             <div className="flex items-center gap-100 text-preset-4">
@@ -186,7 +247,7 @@ export function TabFavorites({ amount }) {
                             </div>
 
                             {/* Taxa en vivo, cambio 24h e a estrela para borrar */}
-                            <div className="flex items-center gap-250">
+                            < div className="flex items-center gap-250" >
                                 <div className="flex flex-col items-end gap-075">
                                     <div className="text-preset-3 text-neutral-50">
                                         {liveData && liveData.rate !== undefined && liveData.rate !== null
@@ -205,18 +266,22 @@ export function TabFavorites({ amount }) {
                                 </div>
 
                                 {/* Ao facer clic executa unpinPair e a fila desaparece instantaneamente */}
-                                <button
-                                    onClick={() => unpinPair(pair.id)}
+                                < button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        unpinPair(pair.id);
+                                    }}
                                     className="hover:text-neutral-500 cursor-pointer transition-colors focus:outline-none"
                                     aria-label="Unpin currency pair"
+                                    tabIndex={-1}
                                 >
                                     <img src="./images/icon-star-filled.svg" alt="favorite" className="border-2 border-lime-500  rounded-8 w-400 p-100" />
                                 </button>
                             </div>
-                        </div>
+                        </article >
                     );
                 })}
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

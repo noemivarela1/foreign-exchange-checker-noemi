@@ -34,13 +34,13 @@ User actions:
 
 #### Currency picker
 
-- Smart Currency Search: Browse the complete global currency catalog instantly by code or name.
-- Categorized Layout: Streamlined UI grouping currencies into "Popular" and "Other" with high-quality visual flags.
-- Instant State Feedback: Checkmark indicator showing the currently active currency.
+- **Smart Currency Search**: Browse the complete global currency catalog instantly by code or name.
+- **Categorized Layout**: Streamlined UI grouping currencies into "Popular" and "Other" with high-quality visual flags.
+- **Instant State Feedback**: Checkmark indicator showing the currently active currency.
 
 #### Live markets ticker
 
-- Currency ticker: Displays dynamic currency pairs with exchange rates and 24-hour price trends (positive/negative).
+- **Currency ticker**: Displays dynamic currency pairs with exchange rates and 24-hour price trends (positive/negative).
 
 #### Rate history
 
@@ -56,7 +56,7 @@ User actions:
 #### Favorites
 
 - **Real-Time Favorites Dashboard**: Monitor your bookmarked currency pairs alongside live exchange rates and 24-hour price fluctuations.
-<!--- Instant Converter Reload: Quickly load any pinned pair back into the main converter interface simply by clicking its row.-->
+- **Instant Converter Reload**: Quickly load any pinned pair back into the main converter interface simply by clicking its row.
 - **Effortless Tracking Control**: Easily remove any currency pair from your watchlist with a single click when you no longer need to track it.
 
 #### Conversion log

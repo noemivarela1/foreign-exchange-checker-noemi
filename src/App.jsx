@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {FavoritesProvider} from './context/FavoritesContext';
+import { FavoritesProvider } from './context/FavoritesContext';
 import { LogProvider } from './context/LogContext';
 import { currencyRates } from './hooks/currencyRates';
 import Header from './components/Header'
@@ -14,7 +14,7 @@ function App() {
   const [toCurrency, setToCurrency] = useState(currenciesMap['EUR']);
 
   const { convertedAmount, loading, rates } = currencyRates(amount, fromCurrency.code, toCurrency.code);
- 
+
   const totalMoedas = rates && Object.keys(rates).length > 0
     ? currencies.filter(moneda => rates[moneda.code] !== undefined).length
     : 0;
@@ -50,6 +50,8 @@ function App() {
               amount={amount}
               fromCurrency={fromCurrency}
               toCurrency={toCurrency}
+              setFromCurrency={setFromCurrency}
+              setToCurrency={setToCurrency}
             />
           </main>
         </div>
