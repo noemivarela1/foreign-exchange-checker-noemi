@@ -83,7 +83,7 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
     return (
         <div className="flex flex-col items-center w-[343px] xl:w-[1036px] md:w-[720px]  gap-250 p-200 text-neutral-200 bg-neutral-700/30 border border-neutral-600 rounded-16">
             {/* Cabeceira coa cantidade e a moeda orixe */}
-            <div className="flex flex-col md:justify-between md:w-[680px] md:flex-row items-start md:items-center gap-150" >
+            <div className="flex flex-col md:justify-between md:w-[680px] xl:w-[996px] md:flex-row items-start md:items-center gap-150" >
                 <h3 className="uppercase text-neutral-50 tracking-wider uppercase">
                     <span className="text-preset-4">multi-currency</span> <span className="text-preset-3-medium">{amount} from {fromCurrency.code}</span>
                 </h3>
@@ -132,7 +132,7 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
                         return (
                             <Fragment key={code}>
                                 {/* CARD INDIVIDUAL DA MOEDA (Mantendo o teu deseño exacto) */}
-                                <div className={`w-[311px] h-[61px] md:w-[680px] md:h-[61px] p-150 bg-neutral-600 border rounded-8 p-150 flex  justify-between items-center transition-all ${isTargetSelected
+                                <div className={`w-[311px] h-[61px] md:w-[680px] md:h-[61px] xl:w-[996px] p-150 bg-neutral-600 border rounded-8 p-150 flex  justify-between items-center transition-all ${isTargetSelected
                                     ? 'border-lime-500'
                                     : 'border-neutral-800 hover:border-neutral-600'
                                     }`}>
@@ -142,7 +142,7 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
                                         <span className="w-300 h-300 overflow-hidden rounded-full flex items-center justify-center bg-neutral-800">
                                             <img src={currencyInfo.flag} alt={`${code} flag`} className="w-300 h-300 object-cover" />
                                         </span>
-                                        <div className="flex flex-col justify-between w-[215px] md:w-[584px] gap-075">
+                                        <div className="flex flex-col justify-between w-[215px] md:w-[584px] xl:w-[900px] gap-075">
                                             <div className="flex justify-between">
                                                 <span className="text-preset-4 text-neutral-50 uppercase">{code}</span>
                                                 <span className="text-neutral-50 text-preset-3 uppercase tracking-wider font-bold">
