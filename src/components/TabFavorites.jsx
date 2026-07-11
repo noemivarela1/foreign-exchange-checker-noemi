@@ -144,9 +144,9 @@ export function TabFavorites({ amount }) {
                     {!isOnline ? (
                         "You are currently offline. Please check your internet connection."
                     ) :
-                     (
-                        "Pin a pair to track its rate here. Tap the star icon on any conversion or comparison row."
-                    )}
+                        (
+                            "Pin a pair to track its rate here. Tap the star icon on any conversion or comparison row."
+                        )}
                 </p>
             </div>
         );
@@ -189,7 +189,10 @@ export function TabFavorites({ amount }) {
                             <div className="flex items-center gap-250">
                                 <div className="flex flex-col items-end gap-075">
                                     <div className="text-preset-3 text-neutral-50">
-                                        {liveData.rate}
+                                        {liveData && liveData.rate !== undefined && liveData.rate !== null
+                                            ? Number(liveData.rate).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                            : "0.00"
+                                        }
                                     </div>
 
                                     {/* Etiqueta de porcentaxe verde se é positivo, ou vermella se é negativo */}

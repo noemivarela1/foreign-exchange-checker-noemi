@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useFavorites } from '../context/FavoritesContext';
+import { useLog } from '../context/LogContext';
 import { TabHistory } from './TabHistory';
 import { TabCompare } from './TabCompare';
 import { TabFavorites } from './TabFavorites';
@@ -10,6 +12,8 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
     const [isOpen, setIsOpen] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState(-1);
     const options = ['history', 'compare', 'favorites', 'log'];
+    const { pinnedPairs } = useFavorites();
+    const { conversionLog } = useLog();
 
     const handleDropdownKeyDown = (e) => {
         if (!isOpen) {
@@ -53,7 +57,7 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
             case 'history':
                 return <TabHistory fromCurrency={fromCurrency} toCurrency={toCurrency} />;
             case 'compare':
-                return <TabCompare amount={amount} fromCurrency={fromCurrency} toCurrency={toCurrency}/>;
+                return <TabCompare amount={amount} fromCurrency={fromCurrency} toCurrency={toCurrency} />;
             case 'favorites':
                 return <TabFavorites amount={amount} />;
             case 'log':
@@ -101,14 +105,27 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
                         setIsOpen(!isOpen);
                         if (!isOpen) setFocusedIndex(options.indexOf(activeTab));
                     }}
-                    className={`w-full h-[40px] px-150 flex items-center justify-between bg-neutral-700 text-preset-3 uppercase text-neutral-50 border border-neutral-400 rounded-8 cursor-pointer outline-none focus-visible:outline-none transition-colors ${isKeyboard ? 'focus-visible:border-neutral-400 focus-visible:border-2' : 'focus-visible:border-lime-500 focus-visible:border-2'
+                    className={`w-full h-[40px] px-150 flex justify-between items-center bg-neutral-700 text-preset-3 uppercase text-neutral-50 border border-neutral-400 rounded-8 cursor-pointer outline-none focus-visible:outline-none transition-colors ${isKeyboard ? 'focus-visible:border-neutral-400 focus-visible:border-2' : 'focus-visible:border-lime-500 focus-visible:border-2'
                         }`}
                 >
+                    <div className="">
                     <span>{activeTab}</span>
+                    {activeTab.toLowerCase().includes('favorit') && (
+                        <span className="bg-lime-800 px-150 text-lime-500 rounded-full text-preset-6 shrink-0">
+                            {pinnedPairs ? pinnedPairs.length : 0}
+                        </span>
+                    )}
+
+                    {activeTab.toLowerCase().includes('log') && (
+                        <span className="bg-lime-800 px-150 text-lime-500 rounded-full text-preset-6 font-mono shrink-0">
+                            {conversionLog ? conversionLog.length : 0}
+                        </span>
+                    )}
+                    </div>
                     <span className="text-[12px] opacity-60 transition-transform duration-200" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
 
-                {/* LISTAXE DE OPCIÓNS COMPATIBLE CON RATON E TECLADO */}
+                {/* LISTAXE DE OPCIÓNS COMPATIBLE CO RATO E O TECLADO */}
                 {isOpen && (
                     <ul
                         role="listbox"
@@ -136,6 +153,17 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
                         `}
                                 >
                                     {tab}
+                                    {tab.toLowerCase().includes('favorit') && (
+                                        <span className="bg-lime-800 text-lime-500 px-2 py-0.5 rounded-full text-preset-6 shrink-0 ml-2">
+                                            {pinnedPairs ? pinnedPairs.length : 0}
+                                        </span>
+                                    )}
+
+                                    {tab.toLowerCase().includes('log') ? (
+                                        <span className="bg-lime-800 text-lime-500 px-2 py-0.5 rounded-full text-preset-6 shrink-0 ml-2">
+                                            {conversionLog ? conversionLog.length : 0}
+                                        </span>
+                                    ) : null}
                                 </button>
                             </li>
                         ))}
@@ -180,6 +208,9 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
                         }`}
                 >
                     Favorites
+                    <span className="bg-lime-800 text-lime-500 px-100 rounded-full text-preset-6">
+                        {pinnedPairs ? pinnedPairs.length : 0}
+                    </span>
                 </button>
                 <button
                     onClick={() => setActiveTab('log')}
@@ -192,6 +223,9 @@ export default function Dashboard({ amount, fromCurrency, toCurrency }) {
                         }`}
                 >
                     Log
+                    <span className="bg-lime-800 text-lime-500 px-100 rounded-full text-preset-6">
+                        {conversionLog ? conversionLog.length : 0}
+                    </span>
                 </button>
 
             </nav>
