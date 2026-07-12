@@ -10,7 +10,6 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
 
     // Extraemos as tres ferramentas reais do teu contexto de favoritos
     const { pinnedPairs, togglePinPair, unpinPair } = useFavorites();
-    const favoritesContext = useFavorites();
     
     useEffect(() => {
         // Funcións para actualizar o estado cando cambie a rede
@@ -51,13 +50,13 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
 
                     setRates(formattedRates);
                 } else {
-                    console.warn("A API v2 non devolveu o array agardado. Revisa o endpoint.");
+                    console.warn("API v2 failed to return the expected array. Review the endpoint.");
                     setRates({});
                 }
                 setLoading(false);
             })
             .catch((err) => {
-                console.error("Erro cargando comparativas:", err);
+                console.error("Error loading comparison data:", err);
                 setLoading(false);
             });
     }, [fromCurrency.code]); // Escoitamos a propiedade primitiva do texto para evitar bucles
@@ -164,6 +163,7 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
                                         {/* Botón da estrela conectado ao teu contexto */}
                                         {/* Ao facer clic executa unpinPair e a fila desaparece instantaneamente */}
                                         <button
+                                            type="button"
                                             onClick={handleFavoriteToggle}
                                             className="hover:text-neutral-500 cursor-pointer transition-colors focus:outline-non w-400"
                                             aria-label="Unpin currency pair"

@@ -6,7 +6,7 @@ import { TabCompare } from './TabCompare';
 import { TabFavorites } from './TabFavorites';
 import { TabLog } from './TabLog';
 
-export default function Dashboard({ amount, fromCurrency, toCurrency,setFromCurrency, setToCurrency}) {
+export default function Dashboard({ amount, fromCurrency, toCurrency, setFromCurrency, setToCurrency }) {
     const [activeTab, setActiveTab] = useState('history'); // Estado inicial
     const [isKeyboard, setIsKeyboard] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -107,21 +107,28 @@ export default function Dashboard({ amount, fromCurrency, toCurrency,setFromCurr
                     className={`w-full h-[40px] px-150 flex justify-between items-center bg-neutral-700 text-preset-3 uppercase text-neutral-50 border border-neutral-400 rounded-8 cursor-pointer outline-none focus-visible:outline-none transition-colors ${isKeyboard ? 'focus-visible:border-neutral-400 focus-visible:border-2' : 'focus-visible:border-lime-500 focus-visible:border-2'
                         }`}
                 >
-                    <div className="">
-                    <span>{activeTab}</span>
-                    {activeTab.toLowerCase().includes('favorit') && (
-                        <span className="bg-lime-800 px-150 text-lime-500 rounded-full text-preset-6 shrink-0">
-                            {pinnedPairs ? pinnedPairs.length : 0}
-                        </span>
-                    )}
+                    <span className="">
+                        <span>{activeTab}</span>
+                        {activeTab.toLowerCase().includes('favorit') && (
+                            <span className="bg-lime-800 px-150 text-lime-500 rounded-full text-preset-6 shrink-0">
+                                {pinnedPairs ? pinnedPairs.length : 0}
+                            </span>
+                        )}
 
-                    {activeTab.toLowerCase().includes('log') && (
-                        <span className="bg-lime-800 px-150 text-lime-500 rounded-full text-preset-6 font-mono shrink-0">
-                            {conversionLog ? conversionLog.length : 0}
-                        </span>
-                    )}
-                    </div>
-                    <span className="text-[12px] opacity-60 transition-transform duration-200" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                        {activeTab.toLowerCase().includes('log') && (
+                            <span className="bg-lime-800 px-150 text-lime-500 rounded-full text-preset-6 font-mono shrink-0">
+                                {conversionLog ? conversionLog.length : 0}
+                            </span>
+                        )}
+                    </span>
+                    {/* 🚀 CORRECCIÓN: Usamos unha imaxe real, controlamos o tamaño e rotamos con Tailwind sen style en liña */}
+                    <img
+                        src="./images/icon-chevron-down.svg"
+                        alt=""
+                        className={`w-3 h-3 opacity-60 transition-transform duration-200 shrink-0
+                            ${isOpen ? 'rotate-180' : 'rotate-0'}
+                    `}
+                    />
                 </button>
 
                 {/* LISTAXE DE OPCIÓNS COMPATIBLE CO RATO E O TECLADO */}
@@ -173,6 +180,7 @@ export default function Dashboard({ amount, fromCurrency, toCurrency,setFromCurr
 
             <nav onKeyDown={handleKeyDown} role="tablist" className="hidden md:flex gap-1.5 border-b border-neutral-800 mt-400 w-full">
                 <button
+                    type="button"
                     onClick={() => setActiveTab('history')}
                     role="tab"
                     aria-selected={activeTab === 'history'}
@@ -185,6 +193,7 @@ export default function Dashboard({ amount, fromCurrency, toCurrency,setFromCurr
                     History
                 </button>
                 <button
+                    type="button"            
                     onClick={() => setActiveTab('compare')}
                     role="tab"
                     aria-selected={activeTab === 'compare'}
@@ -197,6 +206,7 @@ export default function Dashboard({ amount, fromCurrency, toCurrency,setFromCurr
                     Compare
                 </button>
                 <button
+                    type="button"
                     onClick={() => setActiveTab('favorites')}
                     role="tab"
                     aria-selected={activeTab === 'favorites'}
@@ -212,6 +222,7 @@ export default function Dashboard({ amount, fromCurrency, toCurrency,setFromCurr
                     </span>
                 </button>
                 <button
+                    type="button"
                     onClick={() => setActiveTab('log')}
                     role="tab"
                     aria-selected={activeTab === 'log'}

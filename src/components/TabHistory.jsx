@@ -102,7 +102,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
         <div className="flex flex-col items-center justify-center p-125 xl:w-[1036px] md:w-[768px] xl:h-[154px] gap-200">
             <p className="text-neutral-100 text-preset-2">No chart data available.</p>
             <p className="text-preset-4 text-neutral-200 w-[343px] md:w-[508px] text-center">
-                We could't load rate history for USD/EUR right now.
+                We could&apos;t load rate history for USD/EUR right now.
                 This usually clears up in a minute.
             </p>
         </div>
@@ -147,6 +147,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                         const isActive = activeRange === range;
                         return (
                             <button
+                                type="button"
                                 key={range}
                                 onClick={() => setActiveRange(range)}
                                 onFocus={() => setActiveRange(range)}

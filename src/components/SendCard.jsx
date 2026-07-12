@@ -11,6 +11,7 @@ export default function SendCard({ amount, setAmount, fromCurrency, setFromCurre
             <div className="flex justify-between items-baseline">
                 <input
                     type="text"
+                    aria-label="Amount to convert"
                     value={
                         amount === ''
                             ? ''

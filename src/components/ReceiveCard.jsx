@@ -8,6 +8,7 @@ export default function ReceiveCard({ convertedAmount, toCurrency, setToCurrency
             <div className="flex justify-between items-end">
                 <input
                     type="text"
+                    aria-label="Amount converted"
                     value={convertedAmount ? convertedAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0'}
                     readOnly
                     className="xl:text-preset-1 text-preset-1-tablet w-[8ch] p-0 leading-none border border-transparent border-neutral-500 rounded-16 bg-transparent text-lime-500 placeholder-neutral-400 focus:outline-none focus:border-lime-500 transition-colors"

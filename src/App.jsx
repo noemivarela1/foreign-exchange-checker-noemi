@@ -3,7 +3,7 @@ import { FavoritesProvider } from './context/FavoritesContext';
 import { LogProvider } from './context/LogContext';
 import { currencyRates } from './hooks/currencyRates';
 import Header from './components/Header'
-import LiveMarketsTicker from './components/LiveMarketsTicker'
+
 import CurrencyConverter from './components/CurrencyConverter'
 import { currencies, currenciesMap } from './data/currencies';
 import DashBoard from './components/DashBoard';
@@ -35,9 +35,8 @@ function App() {
       <LogProvider>
         <div className="app-container">
           {/* CABECEIRA CO LOGO */}
-          <Header totalMoedas={totalMoedas} loading={loading} />
-          {/* TICKER BANNER */}
-          <LiveMarketsTicker />
+          <Header totalMoedas={totalMoedas} loading={loading}/>
+          
           {/* CONTIDO PRINCIPAL*/}
           <main className="flex flex-col items-center card-container max-w-[1100px] py-400 mx-auto md:px-8 md:py-12">
             <CurrencyConverter

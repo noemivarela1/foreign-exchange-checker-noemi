@@ -24,6 +24,7 @@ export default function FavoriteButton({ fromCurrency, toCurrency }) {
 
     return (
         <button 
+            type="button"
             onClick={handleFavoriteClick} // Executa a acción global
             className={`flex justify-between items-center cursor-pointer px-150 py-100 rounded-8 h-[32px] border-[1.5px] uppercase text-preset-5-medium transition-colors
                   ${isPinned

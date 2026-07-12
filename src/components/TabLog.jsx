@@ -76,6 +76,7 @@ export function TabLog({ amount }) {
                 <div className="flex w-full md:w-1/2 md:justify-end justify-between items-center  gap-200">
                     <p className="uppercase text-preset-5 text-neutral-50 opacity-70">{conversionLog.length} logged</p>
                     <button
+                        type="button"
                         onClick={clearLog}
                         className="text-preset-5 uppercase text-neutral-200 h-[30px] w-[93px] border border-neutral-400 radius-8 bg-neutral-600 hover:text-red-400 transition-colors cursor-pointer focus:outline-none"
                     >

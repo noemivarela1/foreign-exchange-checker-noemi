@@ -7,6 +7,7 @@ export default function LogButton() {
 
     return (
         <button
+            type="button"
             onClick={toggleLogging} // Agora activa o modo gravación en toda a web
             className={`h-[32px] py-100 cursor-pointer border rounded-8 text-preset-5-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-lime-500 focus-visible:outline-offset-2
                     ${isLogging //  Usa o estado global para cambiar o deseño
