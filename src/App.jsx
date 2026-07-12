@@ -19,16 +19,6 @@ function App() {
     ? currencies.filter(moneda => rates[moneda.code] !== undefined).length
     : 0;
 
-  // NOVOS ESTADOS PARA AS 4 LAPELAS
-  const [activeTab, setActiveTab] = useState('history') // Controla que lapela se ve
-  const [logs, setLogs] = useState([])              // Historial de conversións do usuario
-  const [favorites, setFavorites] = useState([])    // Lista de parellas favoritas
-
-  if (rates && Object.keys(rates).length > 0) {
-    const moedasActivas = currencies.filter(m => rates[m.code] !== undefined);
-
-    const moedasFallidas = currencies.filter(m => rates[m.code] === undefined);
-  }
 
   return (
     <FavoritesProvider>
