@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useEffect } from 'react'
+
+import { useState} from 'react'
 import CurrencyPicker from './CurrencyPicker'; // Asegúrate de que a ruta sexa correcta
 
 export default function SendCard({ amount, setAmount, fromCurrency, setFromCurrency }) {

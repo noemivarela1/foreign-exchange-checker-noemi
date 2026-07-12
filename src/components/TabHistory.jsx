@@ -17,9 +17,6 @@ export function TabHistory({ fromCurrency, toCurrency }) {
     useEffect(() => {
         async function fetchTabData() {
             try {
-                const localDate = new Date();
-                const dayOfWeek = localDate.getDay(); // 0 = Domingo, 1 = Luns, 6 = Sábado
-
                 const endDate = new Date();
                 const startDate = new Date();
                 

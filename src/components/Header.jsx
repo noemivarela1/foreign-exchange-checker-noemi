@@ -1,5 +1,5 @@
 import LiveMarketsTicker from './LiveMarketsTicker'
-export default function Header({ totalMoedas, loading }) {
+export default function Header({ totalMoedas }) {
     return (
         <header className="main-header flex flex-col">
             <div className="flex items-center justify-between  md:px-6 md:py-5 p-200">

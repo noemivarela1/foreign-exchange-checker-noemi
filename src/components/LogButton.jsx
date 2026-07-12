@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useLog } from '../context/LogContext'; 
 
 export default function LogButton() {

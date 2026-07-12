@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Recibimos a función handleSwap dende o pai a través das props
 export default function SwapButton({ handleSwap }) {
