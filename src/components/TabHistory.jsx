@@ -142,7 +142,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                         </dd>
                     </div>
                 </dl>
-                <div className="flex self-start p-025 md:justify-end items-center bg-neutral-700 xl:self-end">
+                <nav aria-label="Timeframe selection" className="flex self-start p-025 md:justify-end items-center bg-neutral-700 xl:self-end">
                     {timeRanges.map((range) => {
                         const isActive = activeRange === range;
                         return (
@@ -160,7 +160,7 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                             </button>
                         );
                     })}
-                </div>
+                </nav>
             </div>
             <CurrencyChart
                 fromCurrency={fromCurrency}
