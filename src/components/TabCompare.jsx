@@ -93,7 +93,7 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
                 <div className="text-center text-neutral-400 py-4">Loading rates...</div>
             ) : (
                 <div className="flex flex-wrap gap-200 w-[311px] md:w-[680px] md:max-h-[572px] overflow-y-auto no-scrollbar xl:w-[996px] justify-start items-center">
-                    {targetCurrencies.map((code, index) => {
+                    {targetCurrencies.map((code) => {
                         // Buscamos a taxa que vén do servizo web para este código de 3 letras (Ex: rates["USD"])
                         const rate = rates[code] || 0;
                         // Calculamos a conversión multiplicando a cantidade do Converter por ese número

@@ -168,7 +168,7 @@
 
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE e Edge vello */
-  scrollbar-width: noneS;  /* Firefox */
+  scrollbar-width: none;  /* Firefox */
 }
 
 @keyframes marquee {
