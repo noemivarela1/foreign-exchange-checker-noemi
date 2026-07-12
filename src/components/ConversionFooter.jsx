@@ -1,4 +1,4 @@
-import React from 'react';
+
 import FavoriteButton from './FavoriteButton';
 import LogButton from './LogButton';
 

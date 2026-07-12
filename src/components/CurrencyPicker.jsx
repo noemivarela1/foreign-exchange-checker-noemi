@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 // Importamos directamente o teu array de moedas
 import { currencies } from '../data/currencies';
 
-export default function CurrencyPicker({ value, onChange, defaultValue }) {
+export default function CurrencyPicker({ value, onChange}) {
     const [isOpen, setIsOpen] = useState(false)
     // Estado para controlar o texto que escribe o usuario no buscador
     const [searchTerm, setSearchTerm] = useState('')

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { currenciesMap } from '../data/currencies';
 import { useFavorites } from '../context/FavoritesContext';
 

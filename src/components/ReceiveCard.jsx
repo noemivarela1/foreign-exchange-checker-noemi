@@ -1,4 +1,4 @@
-import React from 'react';
+
 import CurrencyPicker from './CurrencyPicker'; // Asegúrate de que a ruta sexa correcta
 
 export default function ReceiveCard({ convertedAmount, toCurrency, setToCurrency }) {

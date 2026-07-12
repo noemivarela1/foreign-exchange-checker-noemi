@@ -5,7 +5,7 @@ export function currencyRates(amount, fromCode, toCode) {
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // 1. Descarga e garda as taxas na memoria unha soa vez ao cargar a web
+  // Descarga e garda as taxas na memoria unha soa vez ao cargar a web
   useEffect(() => {
     fetch("https://api.frankfurter.dev/v2/rates?base=USD")
       .then((res) => {
@@ -26,7 +26,7 @@ export function currencyRates(amount, fromCode, toCode) {
       });
   }, []);
 
-  // 2. Fai os cálculos matemáticos na memoria en tempo real
+  // Fai os cálculos matemáticos na memoria en tempo real
   useEffect(() => {
     if (loading || !amount || !fromCode || !toCode) {
       setConvertedAmount(0);

@@ -1,20 +1,11 @@
-import { useState, useEffect } from 'react'
-import CurrencyPicker from './CurrencyPicker'
+import {useEffect } from 'react'
 import SwapButton from './SwapButton';
 import SendCard from './SendCard';
 import ReceiveCard from './ReceiveCard';
 import ConversionFooter from './ConversionFooter';
 import { useLog } from '../context/LogContext';
 
-export default function CurrencyConverter({ amount, setAmount, fromCurrency, setFromCurrency, toCurrency, setToCurrency, convertedAmount, loading }) {
-  // Estados para o control do usuario
-  const [resultAmount, setResultAmount] = useState(0);
-
-  // Estados para os datos da API
-  const [rates, setRates] = useState({})        // Gardará o obxecto con todas as moedas
-  //const [loading, setLoading] = useState(true)  // Para saber se a API está cargando
-  const [error, setError] = useState(null)      // Por se falla a conexión á internet
-
+export default function CurrencyConverter({ amount, setAmount, fromCurrency, setFromCurrency, toCurrency, setToCurrency, convertedAmount, loading ,error}) {
   const { isLogging, addLogEntry } = useLog();
 
   const unitFromAmount = amount && Number(amount) !== 0

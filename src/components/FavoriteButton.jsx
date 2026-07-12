@@ -1,4 +1,4 @@
-import React from 'react';
+
 // Importamos o noso hook do contexto global de favoritos
 import { useFavorites } from '../context/FavoritesContext'; 
 

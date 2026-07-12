@@ -200,8 +200,6 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
                 {/* Separamos e calculamos as coordenadas X e Y de forma limpa para o path do degradado */}
                 {chartData.length > 1 && (() => {
                     const firstPoint = points.split(' ')[0].split(',');
-                    const lastPoint = points.split(' ').pop().split(',');
-
                     return (
                         <path
                             fill="url(#areaGradient)"
