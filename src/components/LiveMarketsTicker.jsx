@@ -119,16 +119,16 @@ export default function LiveMarketsTicker() {
     const duplicatedItems = [...tickerData, ...tickerData];
 
     return (
-        <div className="relative w-full bg-neutral-900 border-y border-neutral-800 overflow-hidden flex whitespace-nowrap">
+        <section className="relative w-full bg-neutral-900 border-y border-neutral-800 overflow-hidden flex whitespace-nowrap">
 
-            <div className="absolute left-0 top-0 z-10 bg-lime-500 px-100 py-150 md:px-200 md:py-150 md:text-preset-5-medium text-preset-6 text-neutral-900 z-10 border-r border-neutral-700 whitespace-nowrap">
+            <h4 className="absolute left-0 top-0 z-10 bg-lime-500 px-100 py-150 md:px-200 md:py-150 md:text-preset-5-medium text-preset-6 text-neutral-900 z-10 border-r border-neutral-700 whitespace-nowrap">
                 ● LIVE MARKETS
-            </div>
+            </h4>
 
             {/* Cinta con movemento continuo e pausa ao pasar o rato */}
             <div className="flex animate-marquee shrink-0">
                 {duplicatedItems.map((pair, index) => (
-                    <div
+                    <article
                         key={`${pair.base}-${pair.target}-${index}`}
                         className="flex items-center gap-125 px-150 py-150 md:px-250 md:py-150 bg-neutral-700 select-none cursor-pointer"
                     >
@@ -149,10 +149,10 @@ export default function LiveMarketsTicker() {
                             {pair.trend === 'down' && '▼ -'}
                             {pair.change}%
                         </span>
-                    </div>
+                    </article>
                 ))}
             </div>
 
-        </div>
+        </section>
     );
 }

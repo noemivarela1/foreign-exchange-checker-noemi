@@ -67,9 +67,9 @@ export function TabLog({ amount }) {
 
     // Cando hai internet, hai amount e hai conversións rexistradas
     return (
-        <div className="flex flex-col w-[343px] md:w-[720px] xl:w-[1036px] md:gap-250 md:p-250 text-neutral-200 mx-auto bg-neutral-900/30 rounded-xl border border-neutral-800">
+        <section className="flex flex-col w-[343px] md:w-[720px] xl:w-[1036px] md:gap-250 md:p-250 text-neutral-200 mx-auto bg-neutral-900/30 rounded-xl border border-neutral-800">
             {/* Cabeceira co contador e o botón de borrar */}
-            <div className="flex flex-col md:flex-row gap-125 justify-between items-center border-b border-neutral-600">
+            <header className="flex flex-col md:flex-row gap-125 justify-between items-center border-b border-neutral-600">
                 <h3 className="text-preset-3 self-start uppercase text-lime-50 tracking-wider">
                     Conversion Log
                 </h3>
@@ -82,12 +82,12 @@ export function TabLog({ amount }) {
                         Clear all
                     </button>
                 </div>
-            </div>
+            </header>
 
             {/* Lista con scroll se acumulas moitos logs */}
             <div className="flex flex-col gap-2 md:max-h-[596px] gap-250 xl:w-[996px] overflow-y-auto pr-2 no-scrollbar">
                 {conversionLog.map((log) => (
-                    <div
+                    <article
                         key={log.id}
                         className="flex justify-between items-center h-[64px] gap-150 p-150 md:gap-200 md:p-200 bg-neutral-600/80 rounded-lg border border-neutral-600/50 hover:border-neutral-500/50 transition-all duration-150"
                     >
@@ -116,9 +116,9 @@ export function TabLog({ amount }) {
                             </div>
                             <img onClick={() => deleteLogEntry(log.id)} src="./images/icon-delete.svg" alt="delete" />
                         </div>
-                    </div>
+                    </article>
                 ))}
             </div>
-        </div>
+        </section>
     );
 }

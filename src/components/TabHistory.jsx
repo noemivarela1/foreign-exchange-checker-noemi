@@ -113,35 +113,35 @@ export function TabHistory({ fromCurrency, toCurrency }) {
     const isPositive = marketData.trend === 'up';
 
     return (
-        <div className="flex items-center flex-col gap-250">
+        <article className="flex items-center flex-col gap-250">
             <div className="flex flex-col xl:flex-row items-center justify-between w-[343px] h-[234px] md:w-[720px] md:h-[143px] gap-250 xl:w-[1036px] xl:h-[81px]">
-                <div className="flex justify-center gap-125 items-center md:gap-200 items-center md:justify-start flex-wrap gap-125 w-[343px] h-[172px] md:w-[720px] xl:w-[1036px] xl:h-[81px]">
+                <dl className="flex justify-center gap-125 items-center md:gap-200 items-center md:justify-start flex-wrap gap-125 w-[343px] h-[172px] md:w-[720px] xl:w-[1036px] xl:h-[81px]">
                     <div className="flex flex-col gap-125 md:gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[166px] md:w-[140px] h-[81px]">
-                        <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Open</span>
-                        <span className="text-preset-2 text-neutral-50">{marketData.open}</span>
+                        <dt className="text-preset-4 text-neutral-50 block uppercase opacity-70">Open</dt>
+                        <dd className="text-preset-2 text-neutral-50">{marketData.open}</dd>
                     </div>
 
                     <div className="flex flex-col gap-125 md:gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[166px] md:w-[140px] h-[81px]">
-                        <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Last</span>
-                        <span className="text-preset-2 text-neutral-50">{marketData.last}</span>
+                        <dt className="text-preset-4 text-neutral-50 block uppercase opacity-70">Last</dt>
+                        <dd className="text-preset-2 text-neutral-50">{marketData.last}</dd>
                     </div>
 
                     {/* Aplicamos os 3 estados visuais (neutro/gris se vale 0) coa túa sintaxe exacta */}
                     <div className="flex flex-col gap-125 md:gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-600 w-[166px] md:w-[140px] h-[81px]">
-                        <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">Change</span>
-                        <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
+                        <dt className="text-preset-4 text-neutral-50 block uppercase opacity-70">Change</dt>
+                        <dd className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
                             {marketData.change}
-                        </span>
+                        </dd>
                     </div>
 
                     {/* O mesmo para o % Change, controlando os 3 estados e as iconas */}
                     <div className="flex flex-col gap-125 md:gap-200 bg-neutral-700 px-250 py-150 rounded-16 border border-neutral-700 w-[166px] md:w-[140px] h-[81px]">
-                        <span className="text-preset-4 text-neutral-50 block uppercase opacity-70">% Change</span>
-                        <span className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
+                        <dt className="text-preset-4 text-neutral-50 block uppercase opacity-70">% Change</dt>
+                        <dd className={`text-preset-2 ${isZero ? 'text-neutral-200' : isPositive ? 'text-green-500' : 'text-red-500'}`}>
                             <span>{icons[marketData.trend]}</span> {marketData.percent}
-                        </span>
+                        </dd>
                     </div>
-                </div>
+                </dl>
                 <div className="flex self-start p-025 md:justify-end items-center bg-neutral-700 xl:self-end">
                     {timeRanges.map((range) => {
                         const isActive = activeRange === range;
@@ -168,6 +168,6 @@ export function TabHistory({ fromCurrency, toCurrency }) {
                 lastToRange={marketData.last}
                 activeRange={activeRange}
             />
-        </div>
+        </article>
     );
 }

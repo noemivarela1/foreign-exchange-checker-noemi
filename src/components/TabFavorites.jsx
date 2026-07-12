@@ -163,15 +163,15 @@ export function TabFavorites({ amount, setFromCurrency, setToCurrency }) {
         );
     }
     return (
-        <div className="flex flex-col w-[343px] md:w-[720px] xl:w-[1036px] gap-200 p-200 md:gap-250 md:p-250 text-neutral-200 mx-auto bg-neutral-700/30 rounded-xl border border-neutral-600 rounded-16">
+        <section className="flex flex-col w-[343px] md:w-[720px] xl:w-[1036px] gap-200 p-200 md:gap-250 md:p-250 text-neutral-200 mx-auto bg-neutral-700/30 rounded-xl border border-neutral-600 rounded-16">
             {/* Cabeceira co contador oficial esixido ("10 favorites") */}
-            <div className="flex justify-between items-center">
+            <header className="flex justify-between items-center">
                 <h3 className="text-preset-3-medium uppercase text-neutral-50  tracking-wider">
                     {pinnedPairs.length === 1 ? 'Pinned pair' : 'Pinned pairs'}
                 </h3>
                 {loading && <span className="text-xs text-neutral-400 animate-pulse">Updating rates...</span>}
                 <p className="uppercase text-preset-5 text-neutral-50 opacity-70">{pinnedPairs.length}  {pinnedPairs.length === 1 ? 'favorite' : 'favorites'}</p>
-            </div>
+            </header>
 
             {/* Mapeo dinámico da lista de favoritos con estrelas cheas permanentes */}
             <div className="flex flex-col w-[311px] md:w-[680px] md:max-h-[596px] xl:w-[996px] overflow-y-auto gap-250 no-scrollbar">
@@ -282,6 +282,6 @@ export function TabFavorites({ amount, setFromCurrency, setToCurrency }) {
                     );
                 })}
             </div >
-        </div >
+        </section >
     );
 }

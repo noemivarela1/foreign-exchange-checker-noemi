@@ -81,17 +81,17 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
 
 
     return (
-        <div className="flex flex-col items-center w-[343px] xl:w-[1036px] md:w-[720px]  gap-250 p-200 text-neutral-200 bg-neutral-700/30 border border-neutral-600 rounded-16">
+        <section className="flex flex-col items-center w-[343px] xl:w-[1036px] md:w-[720px]  gap-250 p-200 text-neutral-200 bg-neutral-700/30 border border-neutral-600 rounded-16">
             {/* Cabeceira coa cantidade e a moeda orixe */}
-            <div className="flex flex-col md:justify-between md:w-[680px] xl:w-[996px] md:flex-row items-start md:items-center gap-150" >
+            <header className="flex flex-col md:justify-between md:w-[680px] xl:w-[996px] md:flex-row items-start md:items-center gap-150" >
                 <h3 className="uppercase text-neutral-50 tracking-wider uppercase">
                     <span className="text-preset-4">multi-currency</span> <span className="text-preset-3-medium">{amount} from {fromCurrency.code}</span>
                 </h3>
                 <p className="uppercase text-preset-5">{targetCurrencies.length} pairs</p>
-            </div>
+            </header>
 
             {loading ? (
-                <div className="text-center text-neutral-400 py-4">Cargando tarifas...</div>
+                <div className="text-center text-neutral-400 py-4">Loading rates...</div>
             ) : (
                 <div className="flex flex-wrap gap-200 w-[311px] md:w-[680px] md:max-h-[572px] overflow-y-auto no-scrollbar xl:w-[996px] justify-start items-center">
                     {targetCurrencies.map((code, index) => {
@@ -132,7 +132,7 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
                         return (
                             <Fragment key={code}>
                                 {/* CARD INDIVIDUAL DA MOEDA (Mantendo o teu deseño exacto) */}
-                                <div className={`w-[311px] h-[61px] md:w-[680px] md:h-[61px] xl:w-[996px] p-150 bg-neutral-600 border rounded-8 p-150 flex  justify-between items-center transition-all ${isTargetSelected
+                                <article className={`w-[311px] h-[61px] md:w-[680px] md:h-[61px] xl:w-[996px] p-150 bg-neutral-600 border rounded-8 p-150 flex  justify-between items-center transition-all ${isTargetSelected
                                     ? 'border-lime-500'
                                     : 'border-neutral-800 hover:border-neutral-600'
                                     }`}>
@@ -173,12 +173,12 @@ export function TabCompare({ amount, fromCurrency, toCurrency }) {
                                                 className={isPinned ? "border-2 border-lime-500 p-100 rounded-8 w-400" : "p-100 w-400"} />
                                         </button>
                                     </div>
-                                </div>
+                                </article>
                             </Fragment>
                         );
                     })}
                 </div>
             )}
-        </div >
+        </section >
     );
 }

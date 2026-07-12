@@ -139,7 +139,7 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
     if (chartData.length === 0) return null;
 
     return (
-        <div className="w-[319px] h-[398px] md:w-[720px] md:h-[377px] md:gap-250 xl:w-[1036px] xl:h-[377px] md:p-250 bg-neutral-800/20 rounded-16 border border-neutral-700/50 flex flex-col justify-center items-center">
+        <figure className="w-[319px] h-[398px] md:w-[720px] md:h-[377px] md:gap-250 xl:w-[1036px] xl:h-[377px] md:p-250 bg-neutral-800/20 rounded-16 border border-neutral-700/50 flex flex-col justify-center items-center">
             <div className="flex justify-between items-center text-neutral-50 md:w-[680px] w-[319px] xl:w-[996px]">
                 <span className="text-preset-3-medium">{fromCurrency.code}/{toCurrency.code}</span>
                 <span className="text-preset-5"> {lastToRange} • {formattedDate}</span>
@@ -224,6 +224,6 @@ export function CurrencyChart({ fromCurrency, toCurrency, lastToRange, activeRan
                 )}
 
             </svg>
-        </div>
+        </figure>
     );
 }
