@@ -28,7 +28,7 @@ function App() {
           <Header totalMoedas={totalMoedas} loading={loading}/>
           
           {/* CONTIDO PRINCIPAL*/}
-          <main className="flex flex-col items-center card-container max-w-[1100px] py-400 mx-auto md:px-8 md:py-12">
+          <main className="flex flex-col items-center card-container max-w-[1100px] py-400 mx-auto md:px-400 md:py-600">
             <CurrencyConverter
               amount={amount} setAmount={setAmount}
               fromCurrency={fromCurrency} setFromCurrency={setFromCurrency}
